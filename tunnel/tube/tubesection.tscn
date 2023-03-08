@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2daq85hcomap"]
+
+[ext_resource type="Shader" path="res://tunnel/tube/tubesection.gdshader" id="1_8w6m6"]
+[ext_resource type="Script" path="res://tunnel/tube/tubesection.gd" id="2_lutkv"]
+[ext_resource type="Shader" path="res://tunnel/tube/lamp.gdshader" id="3_fo35e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aldir"]
+render_priority = 0
+shader = ExtResource("1_8w6m6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jbkn4"]
+material = SubResource("ShaderMaterial_aldir")
+flip_faces = true
+size = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfxaw"]
+render_priority = 0
+shader = ExtResource("3_fo35e")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ggi6a"]
+material = SubResource("ShaderMaterial_vfxaw")
+size = Vector3(0.2, 0.2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1pfji"]
+size = Vector3(1, 0.1, 1)
+
+[node name="tubesection" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_jbkn4")
+script = ExtResource("2_lutkv")
+
+[node name="light" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.106395, 0)
+mesh = SubResource("BoxMesh_ggi6a")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00979137, -0.0959787, 0.0164285)
+light_color = Color(0.133333, 0.435294, 0.227451, 1)
+light_energy = 5.929
+light_size = 0.355
+light_specular = 2.017
+omni_range = 4.271
+omni_attenuation = 0.615572
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1pfji")

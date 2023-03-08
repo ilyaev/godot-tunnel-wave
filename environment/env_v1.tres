@@ -1,0 +1,27 @@
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://bjrg33efvf358"]
+
+[ext_resource type="Sky" uid="uid://dnojtqqfuphvo" path="res://environment/sky_earth.tres" id="1_ky40l"]
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 0.35
+sky = ExtResource("1_ky40l")
+sky_custom_fov = 56.2
+sky_rotation = Vector3(3.48787e-16, 3.13636, 3.48787e-16)
+ssr_fade_in = 0.369343
+ssr_fade_out = 0.287174
+ssr_depth_tolerance = 20.41
+glow_enabled = true
+fog_light_energy = 0.45
+fog_sun_scatter = 0.67
+fog_density = 0.0
+fog_aerial_perspective = 0.227
+fog_sky_affect = 0.256
+volumetric_fog_emission = Color(0, 0.466667, 0, 1)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_gi_inject = 1.33
+volumetric_fog_anisotropy = -0.18
+volumetric_fog_length = 23.65
+volumetric_fog_ambient_inject = 2.27
+volumetric_fog_sky_affect = 0.562
+adjustment_brightness = 4.31

@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh5mi1163x3vv"]
+
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_y1bgo"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_an13s"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2ajiw"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_egjjr"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r5w4i"]
+radius = 0.3
+
+[node name="enemy" type="Node3D"]
+script = ExtResource("1_y1bgo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.170319, 0)
+mesh = SubResource("PrismMesh_an13s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("SphereShape3D_2ajiw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.112475, 0.993655, 0, -0.993655, 0.112475, 0, 0, 0, 1, 0.329566, -0.15295, 0)
+mesh = SubResource("PrismMesh_an13s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("SphereShape3D_2ajiw")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.112399, -0.992983, 0.0367484, -0.993654, 0.112475, -1.84789e-18, -0.00413327, -0.0365152, -0.999325, -0.292229, -0.15295, 0)
+mesh = SubResource("PrismMesh_an13s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("SphereShape3D_2ajiw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.99805, -0.0624247, 0, 0.0624247, -0.99805, 0, -0.496056, 0)
+mesh = SubResource("PrismMesh_an13s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.52081e-09, 0, -1.52081e-09, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_2ajiw")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.216805, 0)
+mesh = SubResource("SphereMesh_egjjr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("SphereShape3D_r5w4i")

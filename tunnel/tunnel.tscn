@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd16kmrnbkywb"]
+
+[ext_resource type="Script" path="res://tunnel/tunnel.gd" id="1_avkfn"]
+[ext_resource type="Script" path="res://enemies/enemies.gd" id="2_4nsna"]
+[ext_resource type="Script" path="res://tunnel/rocks/rocks.gd" id="3_3ggb3"]
+[ext_resource type="Script" path="res://tunnel/obstacles/obstacles.gd" id="3_3wvy7"]
+[ext_resource type="Script" path="res://tunnel/tube/tube.gd" id="5_8nbm8"]
+
+[node name="tunnel" type="Node3D"]
+script = ExtResource("1_avkfn")
+
+[node name="enemies" type="Node3D" parent="."]
+script = ExtResource("2_4nsna")
+
+[node name="obstacles" type="Node3D" parent="."]
+script = ExtResource("3_3wvy7")
+
+[node name="rocks" type="Node3D" parent="."]
+script = ExtResource("3_3ggb3")
+
+[node name="tube" type="Node3D" parent="."]
+script = ExtResource("5_8nbm8")

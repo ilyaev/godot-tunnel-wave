@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cln3srsuybkg0"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_4rmi1"]
+[ext_resource type="Environment" uid="uid://bjrg33efvf358" path="res://environment/env_v1.tres" id="1_dovhe"]
+[ext_resource type="PackedScene" uid="uid://cd16kmrnbkywb" path="res://tunnel/tunnel.tscn" id="2_cnl0x"]
+[ext_resource type="PackedScene" uid="uid://d352utt1qgoo" path="res://player/player.tscn" id="3_leqjq"]
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_4rmi1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_dovhe")
+
+[node name="tunnel" parent="." instance=ExtResource("2_cnl0x")]
+
+[node name="head" parent="." instance=ExtResource("3_leqjq")]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1087rkvjajou"]
+
+[ext_resource type="Script" path="res://tunnel/obstacles/piewall/pie.gd" id="1_tdpuf"]
+
+[node name="pie" type="MeshInstance3D"]
+script = ExtResource("1_tdpuf")

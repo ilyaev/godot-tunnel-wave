@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd7ejwsdog1o2"]
+
+[ext_resource type="Script" path="res://tunnel/rocks/rock.gd" id="1_8wtej"]
+[ext_resource type="Shader" path="res://tunnel/rocks/rock.gdshader" id="1_tplg2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsqvu"]
+render_priority = 0
+shader = ExtResource("1_tplg2")
+shader_parameter/ship_x = null
+shader_parameter/ship_y = null
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pddl"]
+material = SubResource("ShaderMaterial_dsqvu")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="rock" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_5pddl")
+script = ExtResource("1_8wtej")

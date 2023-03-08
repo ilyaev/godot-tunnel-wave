@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmycaqcqia2mo"]
+
+[ext_resource type="Script" path="res://player/bullets/bullet.gd" id="1_fhb7q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kj8cc"]
+emission_enabled = true
+emission = Color(0, 0.792157, 0, 1)
+emission_energy_multiplier = 6.19
+heightmap_scale = 6.231
+subsurf_scatter_strength = 0.27
+grow_amount = 3.33067e-16
+
+[sub_resource type="BoxMesh" id="BoxMesh_xiemg"]
+material = SubResource("StandardMaterial3D_kj8cc")
+size = Vector3(0.1, 0.1, 1)
+
+[node name="bullet" type="Node3D"]
+script = ExtResource("1_fhb7q")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xiemg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.901961, 0.235294, 0.333333, 1)
+light_energy = 1.914
+light_volumetric_fog_energy = 2.448
+light_size = 0.167
+
+[node name="ray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.942983)
+target_position = Vector3(2.08165e-12, 2.08165e-12, -2)
+collision_mask = 4

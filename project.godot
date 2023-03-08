@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="godot-tunnel-wave"
+run/main_scene="res://world.tscn"
+config/features=PackedStringArray("4.0", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameConfig="*res://globals/config.gd"
+GlobalNoise="*res://globals/noise.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+settings/stdout/print_fps=true
+
+[display]
+
+window/size/viewport_width=2304
+window/size/viewport_height=1296
+
+[layer_names]
+
+3d_physics/layer_1="ship"
+3d_physics/layer_2="tube_walls"
+3d_physics/layer_3="enemy"
