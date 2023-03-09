@@ -48,6 +48,20 @@ func build_mesh():
 	surface.set_uv(Vector2(1,1))
 	surface.add_vertex(verts[0])
 
+	#CAP
+	surface.set_uv(Vector2(0,0))
+	surface.add_vertex(verts[0])
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(verts2[0])
+	surface.set_uv(Vector2(1,1))
+	surface.add_vertex(verts2[1])
+
+	surface.set_uv(Vector2(0,0))
+	surface.add_vertex(verts2[1])
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(verts[1])
+	surface.set_uv(Vector2(1,1))
+	surface.add_vertex(verts[0])
 
 
 	#LEFT Quad

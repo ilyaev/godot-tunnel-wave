@@ -23,8 +23,9 @@ func _ready():
 			pi.x = i
 			pi.radius = radius
 			pi.height = height
-			add_child(pi)
 			pi.basis = pi.basis.rotated(Vector3.FORWARD, i * PI*2/density).scaled(scale_vector)
+			add_child(pi)
+
 
 
 func build_material():

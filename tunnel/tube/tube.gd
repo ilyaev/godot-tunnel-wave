@@ -41,7 +41,6 @@ func set_z(z):
 func sync_section(section):
 	section.set_instance_shader_parameter('y', float(section.y))
 	section.position.z = -section.y * length
-
 	var section_density = get_density(section.y)
 
 	if section_density != get_density(section.y - 1) or section_density != get_density(section.y + 1):

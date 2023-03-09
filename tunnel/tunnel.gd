@@ -20,6 +20,7 @@ func n21(vector2):
 func _ready():
 	obstacles.size = size
 	obstacles.spacing = spacing
+	obstacles.length_base = tube.length
 	enemies.size = size
 	enemies.spacing = spacing
 
@@ -35,16 +36,13 @@ func _process(delta):
 	tube.set_z(position.z)
 	rocks.set_z(position.z)
 
-	obstacles.loop = loop
+	obstacles.sync_with_tube(position.z, tube.get_density, tube.radius, tube.length )
+
 	enemies.loop = loop
 
 	if (current_z - loop.x) > 0:
+		pass
 		# spawn_target(loop.y)
-		spawn_obstacle(loop.y)
-
-
-func spawn_obstacle(index):
-	obstacles.spawn(index, tube.get_density(floorf(index * size * spacing / tube.length)), tube.radius, tube.length )
 
 func spawn_target(index):
 	enemies.spawn(index)

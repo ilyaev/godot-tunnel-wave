@@ -18,8 +18,13 @@ void fragment() {
 	col += pow(.2/abs(uv.y - 1.), 1.2) * vec3(.9, .3, .1);
 	col += pow(.2/(uv.y - uv.x), 1.2) * vec3(.9, .3, .1);
 
+	// col += pow(.2/abs((uv.y - uv.x - .5)), 1.2) * vec3(.9, .3, .1);
+
 	col /= 3.;
 
 	ALBEDO = col;
-	ALPHA = clamp(1. - smoothstep(-15., -21., vertex_position.z)*.5, 0., 1.);
+	RIM = 0.;//abs(sin(TIME*3.));
+	// ALPHA = 1.1;
+	//ALPHA = 1. - smoothstep(15., 20., abs(vertex_position.z));
+	// ALPHA = step(-15., vertex_position.z);
 }

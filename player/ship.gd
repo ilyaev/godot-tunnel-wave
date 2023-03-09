@@ -47,7 +47,6 @@ func _process(delta):
 
 
 func _physics_process(delta):
-
 	if ray.is_colliding() :
 		velocity = -3
 
@@ -94,7 +93,6 @@ func _physics_process(delta):
 	position.y += posVelocity.y
 
 	camera.look(position)
-
 
 	if Input.is_action_just_pressed("ui_accept"):
 		var b = bullet.instantiate()

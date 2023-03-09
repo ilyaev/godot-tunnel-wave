@@ -4,6 +4,7 @@ extends Node3D
 @onready var ship = $head/ship
 
 func _ready():
+	tunnel.translate(Vector3(0, 0, 0))
 	ship.connect("bullet_hit", tunnel.bullet_hit)
 
 
