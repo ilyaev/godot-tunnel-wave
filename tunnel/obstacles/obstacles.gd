@@ -24,7 +24,8 @@ func sync_with_tube(z, densityFunc, radius, length):
 		loop.x = next_index
 		loop.y = loop.x + 8
 		var density = densityFunc.call(loop.y)
-		spawn(loop.y, density, radius, length)
+		var R = (2 * radius * tan(PI / density)) / (2 * sin(PI / density))
+		spawn(loop.y, density, R, length)
 
 func spawn(index, density, radius, height):
 	var n = n21(Vector2(index*22., 44.322))

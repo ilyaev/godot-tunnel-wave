@@ -8,6 +8,9 @@ var density = 6
 var radius = 2
 var height = 2
 var vertices = []
+var uv_scale = 1.
+var uv_split = false
+var opening = 1.
 
 func _ready():
 	build_mesh()
@@ -48,20 +51,20 @@ func build_mesh():
 	surface.set_uv(Vector2(1,1))
 	surface.add_vertex(verts[0])
 
-	#CAP
-	surface.set_uv(Vector2(0,0))
-	surface.add_vertex(verts[0])
-	surface.set_uv(Vector2(0,1))
-	surface.add_vertex(verts2[0])
-	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(verts2[1])
+	# #CAP
+	# surface.set_uv(Vector2(0,0))
+	# surface.add_vertex(verts[0])
+	# surface.set_uv(Vector2(0,1))
+	# surface.add_vertex(verts2[0])
+	# surface.set_uv(Vector2(1,1))
+	# surface.add_vertex(verts2[1])
 
-	surface.set_uv(Vector2(0,0))
-	surface.add_vertex(verts2[1])
-	surface.set_uv(Vector2(0,1))
-	surface.add_vertex(verts[1])
-	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(verts[0])
+	# surface.set_uv(Vector2(0,0))
+	# surface.add_vertex(verts2[1])
+	# surface.set_uv(Vector2(0,1))
+	# surface.add_vertex(verts[1])
+	# surface.set_uv(Vector2(1,1))
+	# surface.add_vertex(verts[0])
 
 
 	#LEFT Quad
@@ -111,6 +114,12 @@ func build_material():
 		mat = StandardMaterial3D.new()
 		mat.set_albedo(Color(1,0.5,0,1))
 	set_surface_override_material(0, mat)
+	print(['uvScale', uv_scale])
+	set_instance_shader_parameter('uvScale', float(uv_scale))
+	set_instance_shader_parameter('x', float(x))
+	set_instance_shader_parameter('y', float(y))
+	set_instance_shader_parameter('uvSplit', uv_split)
+	set_instance_shader_parameter('opening', float(opening))
 
 func build_collision():
 	create_trimesh_collision()
