@@ -51,20 +51,20 @@ func build_mesh():
 	surface.set_uv(Vector2(1,1))
 	surface.add_vertex(verts[0])
 
-	# #CAP
-	# surface.set_uv(Vector2(0,0))
-	# surface.add_vertex(verts[0])
-	# surface.set_uv(Vector2(0,1))
-	# surface.add_vertex(verts2[0])
-	# surface.set_uv(Vector2(1,1))
-	# surface.add_vertex(verts2[1])
+	#CAP
+	surface.set_uv(Vector2(0,0))
+	surface.add_vertex(verts[0])
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(verts2[0])
+	surface.set_uv(Vector2(1,1))
+	surface.add_vertex(verts2[1])
 
-	# surface.set_uv(Vector2(0,0))
-	# surface.add_vertex(verts2[1])
-	# surface.set_uv(Vector2(0,1))
-	# surface.add_vertex(verts[1])
-	# surface.set_uv(Vector2(1,1))
-	# surface.add_vertex(verts[0])
+	surface.set_uv(Vector2(0,0))
+	surface.add_vertex(verts2[1])
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(verts[1])
+	surface.set_uv(Vector2(1,1))
+	surface.add_vertex(verts[0])
 
 
 	#LEFT Quad
@@ -114,7 +114,6 @@ func build_material():
 		mat = StandardMaterial3D.new()
 		mat.set_albedo(Color(1,0.5,0,1))
 	set_surface_override_material(0, mat)
-	print(['uvScale', uv_scale])
 	set_instance_shader_parameter('uvScale', float(uv_scale))
 	set_instance_shader_parameter('x', float(x))
 	set_instance_shader_parameter('y', float(y))
@@ -128,3 +127,10 @@ func build_collision():
 	body.set_collision_mask(1)
 	var shape = body.get_child(0)
 	shape.shape.set_margin(.1)
+
+
+func take_hit(collision_point : Vector3):
+	if get_parent().floating:
+		get_parent().queue_free()
+	else:
+		queue_free()

@@ -19,5 +19,4 @@ script = ExtResource("3_3wvy7")
 script = ExtResource("3_3ggb3")
 
 [node name="tube" type="Node3D" parent="."]
-visible = false
 script = ExtResource("5_8nbm8")

@@ -7,6 +7,7 @@ var radius = 3.5
 var height = .5
 var mat = StandardMaterial3D.new()
 var scale_vector = Vector3(1, 1, 1)
+var floating = false
 
 var pie = preload("res://tunnel/obstacles/piewall/pie.tscn")
 var shader_code : Shader = preload("res://tunnel/obstacles/piewall/pie.gdshader")
@@ -17,12 +18,15 @@ func _ready():
 	var uv_scale =  1
 	var uv_split = false
 	var opening = 0.
-	if density < 7:
-		uv_scale = randi_range(1, 3)
-	if uv_scale == 1 && randf() > .5:
+
+	# if density < 7:
+	# 	uv_scale = randi_range(1, 3)
+
+	if uv_scale == 1 && randf() > .7:
 		uv_split = true
-	if randf() > .5:
-		opening = randf()
+
+	# if randf() > .5:
+	# 	opening = randf()
 
 	for i in density:
 		if fill[i] == 1:
@@ -39,6 +43,15 @@ func _ready():
 			pi.opening = opening
 			add_child(pi)
 
+	if floating:
+		var next_pos = get_next_random_position(0)
+		set_position(Vector3(next_pos.x, next_pos.y, position.z))
+
+
+
+func get_next_random_position(index):
+	return Vector2(randf() * 3 - 1.5, randf() * 3 - 1.5)
+
 
 
 func build_material():
@@ -46,4 +59,6 @@ func build_material():
 	mat.set_shader(shader_code)
 
 func _process(delta):
+	if floating:
+		rotate_z(delta * PI/4)
 	pass

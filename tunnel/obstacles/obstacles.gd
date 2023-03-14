@@ -30,13 +30,32 @@ func sync_with_tube(z, densityFunc, radius, length):
 func spawn(index, density, radius, height):
 	var n = n21(Vector2(index*22., 44.322))
 	if n > .1:
-		var obs = piewall.instantiate()
-		obs.y = index;
-		obs.density = density
-		obs.radius = radius
-		obs.height = height
-		obs.fill.clear()
-		for f in obs.density:
-			obs.fill.append(roundi(randf()))
-		obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
-		add_child(obs)
+		if n > .6:
+			spawn_floater(index, density, radius, height)
+		else:
+			spawn_piewall(index, density, radius, height)
+
+func spawn_floater(index, density, radius, height):
+	var obs = piewall.instantiate()
+	obs.y = index;
+	obs.density = randi_range(3,6)
+	obs.radius = radius * .3
+	obs.height = height * .05
+	obs.fill.clear()
+	for f in obs.density:
+		obs.fill.append(1)
+	obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
+	obs.floating = true
+	add_child(obs)
+
+func spawn_piewall(index, density, radius, height):
+	var obs = piewall.instantiate()
+	obs.y = index;
+	obs.density = density
+	obs.radius = radius
+	obs.height = height
+	obs.fill.clear()
+	for f in obs.density:
+		obs.fill.append(roundi(randf()))
+	obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
+	add_child(obs)

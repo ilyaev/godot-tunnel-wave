@@ -48,9 +48,15 @@ func spawn_target(index):
 	enemies.spawn(index)
 
 
-func bullet_hit(mesh, _ray : RayCast3D):
-	var _rock = mesh.get_parent()
+func bullet_hit(mesh, ray : RayCast3D):
 	var expl = explosion.instantiate()
-	expl.position = _rock.position
-	mesh.queue_free()
+	expl.position = mesh.get_parent().position
 	add_child(expl)
+
+	if mesh.has_method("take_hit"):
+		mesh.take_hit(ray.get_collision_point())
+	else:
+		mesh.queue_free()
+
+
+
