@@ -73,6 +73,13 @@ func sync_section(section):
 	else:
 		section.light.hide()
 
+	var major_episode = floor(section.y / GameConfig.MAJOR_TUBE_EPISODE_SIZE)
+	var major_noise = n21(Vector2(major_episode, GlobalNoise.seed * 3))
+	if major_noise > .5:
+		section.hide()
+	else:
+		section.show()
+
 
 func create_mesh():
 	for y in depth:

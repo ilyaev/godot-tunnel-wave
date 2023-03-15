@@ -40,7 +40,7 @@ func _process(delta):
 
 		var angle = a_step * mesh.x + mesh.y*(2 * n)
 
-		angle += sin(T + rotatingN*5.)*step(.7, rotatingN)*(PI + PI/8*rotatingN)
+		angle += sin(T + rotatingN * 5.) * step(.7, rotatingN) * (PI + PI/8*rotatingN)
 
 		pos.x = sin(angle) * radius
 		pos.y = cos(angle) * radius
@@ -55,6 +55,12 @@ func set_z(z):
 			var mesh = get_child(i)
 			mesh.y += 1
 			mesh.set_instance_shader_parameter('y', float(mesh.y))
+			var major_episode = floor(mesh.y / GameConfig.MAJOR_TUBE_EPISODE_SIZE)
+			var major_noise = n21(Vector2(major_episode, GlobalNoise.seed * 3))
+			if major_noise > .5:
+				mesh.hide()
+			else:
+				mesh.show()
 		loop.x = current_z
 		loop.y = loop.x + depth
 

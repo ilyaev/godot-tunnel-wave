@@ -22,23 +22,23 @@ void fragment() {
 
 	float n = n21(vec2(y, 32.22));
 
-	ALBEDO = pow(.05/abs(uv.x-0.49), 3.2) * vec3(.9, .3, .1);
-	ALBEDO += pow(.05/abs(uv.y-0.49), 3.2) * vec3(.9, .3, .1);
+	ALBEDO = pow(.05 / abs(uv.x - 0.49), 3.2) * vec3(.9, .3, .1);
+	ALBEDO += pow(.05 / abs(uv.y - 0.49), 3.2) * vec3(.9, .3, .1);
 	ALBEDO /= 2.;
 
 	if (border) {
-		ALBEDO += pow(.05/abs(uv2.x-0.49), 3.2 - sin(TIME)) * vec3(.3, .9, .1);
-		ALBEDO += pow(.05/abs(uv2.y-0.49), 3.2) * vec3(.3, .9, .1);
+		ALBEDO += pow(.05 / abs(uv2.x - 0.49), 3.2 - sin(TIME)) * vec3(.3, .9, .1);
+		ALBEDO += pow(.05 / abs(uv2.y - 0.49), 3.2) * vec3(.3, .9, .1);
 	}
 
-	ALPHA = clamp(.5 - smoothstep(-15., -21., vertex_position.z)*.5, 0., 1.);
+	ALPHA = clamp(.5 - smoothstep(-15., -21., vertex_position.z) * .5, 0., 1.);
 
 	if (n > .5) {
 //		ALBEDO = vec3(1.- fract(n*3240.772), 1.- fract(n*102.12), 1. - fract(n*10.32));
 		ALBEDO = vec3(.9);
-		ALBEDO += pow(.05/abs(uv2.y-0.49), 3.2) * vec3(.3, .9, .1);
-		ALBEDO += pow(.05/abs(uv2.x-0.49), 3.2 - sin(TIME)) * vec3(.3, .9, .1);
-		ALPHA = clamp(.9 - smoothstep(-15., -21., vertex_position.z)*.9, 0., 1.);
+		ALBEDO += pow(.05 / abs(uv2.y - 0.49), 3.2) * vec3(.3, .9, .1);
+		ALBEDO += pow(.05 / abs(uv2.x - 0.49), 3.2 - sin(TIME)) * vec3(.3, .9, .1);
+		ALPHA = clamp(.9 - smoothstep(-15., -21., vertex_position.z) * .9, 0., 1.);
 	}
 
 }

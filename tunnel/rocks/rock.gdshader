@@ -20,8 +20,8 @@ void fragment() {
 	float n = n21(vec2(x,y));
 	vec2 uv = fract(UV * vec2(3.,2.));
 
-	ALBEDO = pow(1.9/length(vertex_position + vec3(0.0,0.0, 4. + sin(TIME) * 3.)), 2.2) * vec3(0.9, 0.3, 0.1);
-	ALBEDO += max(vec3(0.), 31.2/pow(length(uv-.5), 2.2) * vec3(.9, .3, .1) * step(.9, n) * sin(TIME + y + x + n*3.));
+	ALBEDO = pow(1.9 / length(vertex_position + vec3(0.0,0.0, 4. + sin(TIME) * 3.)), 2.2) * vec3(0.9, 0.3, 0.1);
+	ALBEDO += max(vec3(0.), 31.2 / pow(length(uv - .5), 2.2) * vec3(.9, .3, .1) * step(.9, n) * sin(TIME + y + x + n * 3.));
 
 	ALPHA = 1. - smoothstep(-16., -18., vertex_position.z);
 }
