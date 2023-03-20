@@ -7,6 +7,7 @@ var depth = 10
 var current = 0
 var episode_size = 0
 var _seed = 0
+var curr_episode = 0
 
 var section_scene = preload("res://tunnel/tube/tubesection.tscn")
 
@@ -20,16 +21,24 @@ func _ready():
 
 func _process(delta):
 	T += delta
+	# rotate_z(delta * PI*n21(curr_episode, 343))
 
 
-func n21(vector2):
-	return GlobalNoise.noise.get_noise_2d(vector2.x, vector2.y) + .5
+func n21(x, y):
+	return GlobalNoise.r21(x, y) + .5
 
 func get_density(z):
 	var episode = floor(z / episode_size)
-	return clamp(floor(2 + (GameConfig.MAX_TUBE_SECTIONS - 1) * n21(Vector2(episode + 0.0, _seed))), 3, GameConfig.MAX_TUBE_SECTIONS)
+	return clamp(floor(2 + (GameConfig.MAX_TUBE_SECTIONS - 1) * n21(episode + 0.0, _seed)), 3, GameConfig.MAX_TUBE_SECTIONS)
+
+func get_episode_rotation(z):
+	var episode = floor(z / episode_size)
+	return 2*PI * GlobalNoise.n21(episode, 34.) * 2 - PI
+
 
 func set_z(z):
+	var episode = floor(z / episode_size)
+	curr_episode = episode
 	var p = floorf(z/length)
 	if (p - current) > 0:
 		current = p
@@ -58,9 +67,9 @@ func sync_section(section):
 		var a = 2*PI/section_density
 		var x = sin(a * section.x)*radius
 		var y = cos(a * section.x)*radius
-		section.position = Vector3(x,y,-section.y * length)
+		section.position = Vector3(x, y, -section.y * length)
 
-		var _basis = Basis().scaled(Vector3(2*radius*tan(PI/section_density),1.,length))
+		var _basis = Basis().scaled(Vector3(2*radius*tan(PI/section_density), 1., length))
 		section.basis = _basis.rotated(Vector3.FORWARD, a * section.x)
 
 		section.density = section_density
@@ -68,17 +77,17 @@ func sync_section(section):
 	if !section.get_parent():
 		add_child(section)
 
-	if GlobalNoise.noise.get_noise_2d(section.y, section.x) > 0.25:
+	if abs(GlobalNoise.random_noise.get_noise_2d(section.y, section.x)) > 0.35:
 		section.light.show()
 	else:
 		section.light.hide()
 
 	var major_episode = floor(section.y / GameConfig.MAJOR_TUBE_EPISODE_SIZE)
-	var major_noise = n21(Vector2(major_episode, GlobalNoise.seed * 3))
-	if major_noise > .5:
-		section.hide()
-	else:
+	var major_noise = n21(major_episode, GlobalNoise.seed * 3)
+	if major_noise < .6 || major_episode == 0:
 		section.show()
+	else:
+		section.hide()
 
 
 func create_mesh():

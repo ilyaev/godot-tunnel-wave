@@ -1,8 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh5mi1163x3vv"]
+[gd_scene load_steps=9 format=3 uid="uid://dh5mi1163x3vv"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_y1bgo"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2mfga"]
+fractal_octaves = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jh5c3"]
+noise = SubResource("FastNoiseLite_2mfga")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bddx0"]
+heightmap_enabled = true
+heightmap_texture = SubResource("NoiseTexture2D_jh5c3")
+
 [sub_resource type="PrismMesh" id="PrismMesh_an13s"]
+material = SubResource("StandardMaterial3D_bddx0")
 size = Vector3(0.3, 0.3, 0.3)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2ajiw"]

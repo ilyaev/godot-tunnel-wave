@@ -30,6 +30,10 @@ settings/stdout/print_fps=true
 window/size/viewport_width=2304
 window/size/viewport_height=1296
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [layer_names]
 
 3d_physics/layer_1="ship"

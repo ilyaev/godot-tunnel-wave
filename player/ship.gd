@@ -28,6 +28,7 @@ signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D)
 @onready var ray3 = $mesh/ray3
 @onready var ray4 = $mesh/ray4
 @onready var ray5 = $mesh/ray5
+@onready var bullet_point = $bullet_place
 
 func _ready():
 	pass # Replace with function body.
@@ -94,11 +95,20 @@ func _physics_process(delta):
 
 	camera.look(position)
 
+	rotate_y(delta * PI/4)
+
+	basis = Basis().rotated(Vector3.FORWARD, PI*posVelocity.x*3).rotated(Vector3.RIGHT, PI*posVelocity.y*3)
+
 	if Input.is_action_just_pressed("ui_accept"):
 		var b = bullet.instantiate()
-		b.init(position)
+		b.init(position + bullet_point.position + Vector3(0,0,-0.5))
 		b.connect("bullet_hit", bullet_hit_func)
-		add_child(b)
+		get_parent().add_child(b)
+
+		var b2 = bullet.instantiate()
+		b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
+		b2.connect("bullet_hit", bullet_hit_func)
+		get_parent().add_child(b2)
 
 func bullet_hit_func(pos : Vector3, ray : RayCast3D):
 	var particle = ray.get_collider().get_parent()

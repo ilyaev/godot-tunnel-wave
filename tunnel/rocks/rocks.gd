@@ -14,12 +14,12 @@ var rock = preload("res://tunnel/rocks/rock.tscn")
 func _ready():
 	create_mesh()
 
-func n21(vector2):
-	return GlobalNoise.n21(vector2)
+func n21(x, y):
+	return GlobalNoise.n21(x, y) * 1.3
 
 
 func get_radius(y, t):
-	return base_radius + (abs(n21(Vector2(y, t)) * .5) - .25);
+	return base_radius + abs(n21(y, t) * 3.5)
 
 func step(edge,value):
 	return 1.0 - max(sign(edge-value),0.0)
@@ -28,18 +28,17 @@ func _process(delta):
 	T += delta
 	for i in range(get_child_count()):
 		var mesh = get_child(i)
-		var n = n21(Vector2(mesh.y/15., 12.345))
+		var n = n21(mesh.y/10., 12.345)
 		var radius = base_radius
 
-		if abs(n) > 0.6:
-			radius = lerpf(get_radius(mesh.y, floor(T)), get_radius(mesh.y, ceilf(T)),  fposmod(T, 1.))
+		if abs(n) > 0.3:
+			radius = lerpf(get_radius(mesh.y, floor(T+n*3)*10), get_radius(mesh.y, ceilf(T+n*3)*10),  fposmod(T+n*3, 1.))
 
 		var pos = Vector3(0,0,0)
 
-		var rotatingN = n
-
 		var angle = a_step * mesh.x + mesh.y*(2 * n)
 
+		var rotatingN = GlobalNoise.r21(mesh.y, 44.33) * 3
 		angle += sin(T + rotatingN * 5.) * step(.7, rotatingN) * (PI + PI/8*rotatingN)
 
 		pos.x = sin(angle) * radius
@@ -56,7 +55,7 @@ func set_z(z):
 			mesh.y += 1
 			mesh.set_instance_shader_parameter('y', float(mesh.y))
 			var major_episode = floor(mesh.y / GameConfig.MAJOR_TUBE_EPISODE_SIZE)
-			var major_noise = n21(Vector2(major_episode, GlobalNoise.seed * 3))
+			var major_noise = n21(major_episode, GlobalNoise.seed * 3)
 			if major_noise > .5:
 				mesh.hide()
 			else:

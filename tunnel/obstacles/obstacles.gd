@@ -8,8 +8,8 @@ var length_base = 1
 var piewall = preload("res://tunnel/obstacles/piewall/piewall.tscn")
 
 
-func n21(vector2):
-	return GlobalNoise.n21(vector2)
+func n21(x, y):
+	return GlobalNoise.r21(x, y) * 2.
 
 func _process(_delta):
 	for i in range(get_child_count()):
@@ -28,11 +28,11 @@ func sync_with_tube(z, densityFunc, radius, length):
 		spawn(loop.y, density, R, length)
 
 func spawn(index, density, radius, height):
-	var n = n21(Vector2(index*22., 44.322))
-	if n > .1:
-		if n > .6:
-			spawn_floater(index, density, radius, height)
-		else:
+	var n = n21(index*22., 44.322)
+	if n > .2:
+		# if n > .6:
+		# 	spawn_floater(index, density, radius, height)
+		# else:
 			spawn_piewall(index, density, radius, height)
 
 func spawn_floater(index, density, radius, height):
@@ -56,6 +56,9 @@ func spawn_piewall(index, density, radius, height):
 	obs.height = height
 	obs.fill.clear()
 	for f in obs.density:
-		obs.fill.append(roundi(randf()))
+		if n21(index, f) > .2:
+			obs.fill.append(1)
+		else:
+			obs.fill.append(0)
 	obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
 	add_child(obs)

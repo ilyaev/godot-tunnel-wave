@@ -14,8 +14,8 @@ var explosion = preload("res://player/explosions/explosion.tscn")
 @onready var rocks = $rocks
 
 
-func n21(vector2):
-	return GlobalNoise.n21(vector2)
+func n21(x, y):
+	return GlobalNoise.r21(x, y)
 
 func _ready():
 	obstacles.size = size

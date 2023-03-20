@@ -20,7 +20,8 @@ func _physics_process(delta):
 		queue_free()
 
 func init(pos):
-	position.x = pos.x + .01
-	position.y = pos.y - .01
-	position.z = -1.7
+	position = pos
+	# position.x = pos.x + 2.01
+	# position.y = pos.y - 2.01
+	# position.z = -1.7
 	a = -1.

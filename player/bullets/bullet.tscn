@@ -12,7 +12,7 @@ grow_amount = 3.33067e-16
 
 [sub_resource type="BoxMesh" id="BoxMesh_xiemg"]
 material = SubResource("StandardMaterial3D_kj8cc")
-size = Vector3(0.1, 0.1, 1)
+size = Vector3(0.08, 0.08, 1)
 
 [node name="bullet" type="Node3D"]
 script = ExtResource("1_fhb7q")

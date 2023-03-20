@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://d352utt1qgoo"]
+[gd_scene load_steps=4 format=3 uid="uid://d352utt1qgoo"]
 
-[ext_resource type="PackedScene" uid="uid://ctqrqn7gqc673" path="res://player/ship.tscn" id="1_1wuo8"]
+[ext_resource type="PackedScene" uid="uid://dq2fom8mf0rya" path="res://player/ship.tscn" id="1_1wuo8"]
 [ext_resource type="Script" path="res://player/camera.gd" id="2_lx5tk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i6riu"]
 
 [node name="head" type="Node3D"]
 
 [node name="ship" parent="." instance=ExtResource("1_1wuo8")]
+
+[node name="bullet_place" type="MeshInstance3D" parent="ship"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.5, 0.10291, 0.0786722, 0.0398332)
+visible = false
+mesh = SubResource("BoxMesh_i6riu")
+skeleton = NodePath("../..")
 
 [node name="camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.991167, 0.13262, 0, -0.13262, 0.991167, 0, 0.0912637, 0.106739)
