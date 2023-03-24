@@ -130,7 +130,8 @@ func build_collision():
 
 
 func take_hit(collision_point : Vector3):
-	if get_parent().floating:
-		get_parent().queue_free()
-	else:
-		queue_free()
+	pass
+#	if get_parent().floating:
+#		get_parent().queue_free()
+#	else:
+#		queue_free()

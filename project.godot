@@ -30,6 +30,10 @@ settings/stdout/print_fps=true
 window/size/viewport_width=2304
 window/size/viewport_height=1296
 
+[editor]
+
+movie_writer/movie_file="/Users/ilyaev/godot/godot-tunnel-wave/assets/movie.avi"
+
 [filesystem]
 
 import/fbx/enabled=false

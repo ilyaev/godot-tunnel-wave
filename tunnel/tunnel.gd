@@ -41,8 +41,7 @@ func _process(delta):
 	enemies.loop = loop
 
 	if (current_z - loop.x) > 0:
-		pass
-		# spawn_target(loop.y)
+		spawn_target(loop.y)
 
 func spawn_target(index):
 	enemies.spawn(index)

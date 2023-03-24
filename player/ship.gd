@@ -4,7 +4,7 @@ extends Node3D
 
 var a = 5.
 var velocity = 0.
-var max_velocity = 12.
+var max_velocity = 8.
 var radius = 4.5
 var posVelocity = Vector2(0.,0.)
 var posAcceleration = Vector2(0., 0.)

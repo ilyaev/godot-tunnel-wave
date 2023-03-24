@@ -12,6 +12,7 @@ var T = 0
 var cur_pos = Vector2(0,0)
 var next_pos = Vector2(0,0)
 var is_rotating = false
+var is_flickering = false
 
 var pie = preload("res://tunnel/obstacles/piewall/pie.tscn")
 var shader_code : Shader = preload("res://tunnel/obstacles/piewall/pie.gdshader")
@@ -24,8 +25,11 @@ func _ready():
 	var opening = 0.
 
 	is_rotating = false
-	if abs(GlobalNoise.r21(y, 43)) > .17:
+	var n = abs(GlobalNoise.r21(y, 43))
+	if n > .17:
 		is_rotating = true
+		if n > .2:
+			is_flickering = true
 
 	# if density < 7:
 	# 	uv_scale = randi_range(1, 3)
@@ -65,7 +69,12 @@ func build_material():
 func _process(delta):
 	T += delta
 	if is_rotating:
-		rotate_z(delta * (PI/3 * (GlobalNoise.r21(y, 34)*2) - PI/6) * sin(T*2.5))
+		var wave = 0
+		if randf() > .7 && is_flickering:
+			wave = sin(T*6.5)
+		else:
+			wave = cos(T*2.5)
+		rotate_z(delta * (PI/3 * (GlobalNoise.r21(y, 34)*2) - PI/6) * wave)
 
 	if floating:
 		rotate_z(delta * PI/4)
