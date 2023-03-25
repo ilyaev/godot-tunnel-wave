@@ -24,10 +24,11 @@ func _process(_delta):
 
 			mesh.set_position(pos)
 
-func spawn(index):
+func spawn(index, bullet_hit_func):
 	var n = n21(index, 42)
 	if n > .2:
 		var mesh = enemy.instantiate()
 		mesh.x = 0
 		mesh.y = index
+		mesh.connect("bullet_hit", bullet_hit_func)
 		add_child(mesh)

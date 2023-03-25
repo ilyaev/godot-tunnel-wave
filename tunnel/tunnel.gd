@@ -44,13 +44,13 @@ func _process(delta):
 		spawn_target(loop.y)
 
 func spawn_target(index):
-	enemies.spawn(index)
+	enemies.spawn(index, bullet_hit)
 
 
 func bullet_hit(mesh, ray : RayCast3D):
 	var expl = explosion.instantiate()
-	expl.position = mesh.get_parent().position
-	add_child(expl)
+	expl.position = ray.get_collision_point()
+	get_parent().add_child(expl)
 
 	if mesh.has_method("take_hit"):
 		mesh.take_hit(ray.get_collision_point())

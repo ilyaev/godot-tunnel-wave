@@ -1,13 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqe1t0cvsw5m1"]
+[gd_scene load_steps=6 format=3 uid="uid://bqe1t0cvsw5m1"]
 
 [ext_resource type="PackedScene" uid="uid://bxjkpaixb41di" path="res://assets/Spaceship_FinnTheFrog.glb" id="1_er11p"]
 [ext_resource type="Texture2D" uid="uid://cc8t20ebmqidj" path="res://assets/Atlas.png" id="2_vwhn0"]
+[ext_resource type="Script" path="res://player/ship_model.gd" id="3_lxm15"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbm1u"]
 shading_mode = 2
 albedo_texture = ExtResource("2_vwhn0")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_m4d7k"]
+size = Vector3(6, 2.54217, 3)
+
 [node name="ship_model" instance=ExtResource("1_er11p")]
 
 [node name="Spaceship_FinnTheFrog2" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_dbm1u")
+script = ExtResource("3_lxm15")
+
+[node name="ShipBody" type="StaticBody3D" parent="Spaceship_FinnTheFrog2" index="0"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spaceship_FinnTheFrog2/ShipBody" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0842434, 0)
+shape = SubResource("BoxShape3D_m4d7k")
