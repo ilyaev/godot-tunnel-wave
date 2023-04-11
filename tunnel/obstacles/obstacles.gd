@@ -42,11 +42,26 @@ func spawn_piewall(index, density, radius, height):
 	obs.radius = radius
 	obs.height = height
 	obs.fill.clear()
+	var n = randf_range(0, 1)
 	for f in obs.density:
-		if n21(index, f) > .2:
-			obs.fill.append(1)
+		if n > .5:
+			if n > .7:
+				obs.fill.append(max(.2, min(1., abs(n21(index,f)*1.5))))
+			else:
+				var angle = 6.28/obs.density * f
+				var hn = max(.3, min(.8, abs(GlobalNoise.n21(index + sin(angle) * 2.5, index + cos(angle) * 2.5) * 2)))
+				print([index, f, hn])
+				obs.fill.append(hn)
 		else:
-			obs.fill.append(0)
-	obs.fill[randi_range(0, density-1)] = 0
+			if n21(index, f) > .2:
+				obs.fill.append(1)
+			else:
+				obs.fill.append(0)
+
+	if n > .5:
+		pass
+	else:
+		obs.fill[randi_range(0, density-1)] = 0
+
 	obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
 	add_child(obs)

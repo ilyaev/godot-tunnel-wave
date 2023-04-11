@@ -1,25 +1,45 @@
+@tool
 extends MeshInstance3D
 
 var x = 0
 var y = 0
 var surface = SurfaceTool.new()
 var mat = null
-var density = 6
+@export var density = 6
 var radius = 2
 var height = 2
 var vertices = []
 var uv_scale = 1.
 var uv_split = false
 var opening = 1.
+@export var fill = .5
+var _mesh = ArrayMesh.new()
+var inactive = false
+var gravity = Vector3.DOWN * 9.8
+var velocity = Vector3(0,0,0)
+var acceleration = Vector3(0,0,0)
+var TTL = 3
+var T = 0
 
 func _ready():
 	build_mesh()
 	build_material()
 	build_collision()
 
-func build_mesh():
-	var _mesh = ArrayMesh.new()
 
+func _process(delta):
+	if inactive == false:
+		return
+
+	acceleration += gravity * delta
+	position += acceleration * delta
+
+	T += delta
+	if T > TTL:
+		queue_free()
+
+
+func build_mesh():
 	if _mesh.get_surface_count() > 0:
 		_mesh.surface_remove(0)
 
@@ -34,20 +54,74 @@ func build_mesh():
 	var step = 2 * PI / density
 
 	for n in range(density):
-		var x = radius * sin(step * n)
-		var y = radius * cos(step * n)
+		var x1 = radius * sin(step * n)
+		var y1 = radius * cos(step * n)
 
-		verts[n] = Vector3(x,y,0)
+		verts[n] = Vector3(x1,y1,0)
 		verts2[n] = verts[n] - Vector3(0,0,height)
 
 	surface.set_smooth_group(-1)
 
+	if (fill < 1):
+		build_partial_mesh(verts, verts2)
+	else:
+		build_full_mesh(verts, verts2)
+
+	surface.index()
+	surface.generate_normals()
+	surface.generate_tangents()
+
+
+	surface.commit(_mesh)
+	vertices = verts
+
+	set_mesh(_mesh)
+
+func add_quad(v1,v2,v3,v4):
+	surface.set_uv(Vector2(0,0))
+	surface.add_vertex(v1)
+	surface.set_uv(Vector2(1,0))
+	surface.add_vertex(v2)
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(v4)
+
+	surface.set_uv(Vector2(1,0))
+	surface.add_vertex(v2)
+	surface.set_uv(Vector2(1,1))
+	surface.add_vertex(v3)
+	surface.set_uv(Vector2(0,1))
+	surface.add_vertex(v4)
+
+func build_partial_mesh(verts, verts2):
+	var projection = Vector3(0,0,0)
+	var center1 = Vector3((verts[0].x - projection.x) * (1. - fill), (verts[0].y - projection.y) * (1. - fill),0)
+	var center2 = Vector3((verts[1].x - projection.x) * (1. - fill), (verts[1].y - projection.y) * (1. - fill),0)
+	var center1_back = center1 - Vector3(0,0,height)
+	var center2_back = center2 - Vector3(0,0,height)
+
+	#FACE
+	add_quad(verts[0],verts[1], center2, center1)
+
+	#CAP
+	add_quad(center2, center2_back, center1_back, center1)
+
+	#RIGHT Quad
+	add_quad(verts[0], center1, center1_back, verts2[0])
+
+	#LEFT Quad
+	add_quad(verts[1], verts2[1], center2_back, center2)
+
+func build_full_mesh(verts, verts2):
+	var center = Vector3(0, 0, 0)
+	var center_back = center - Vector3(0, 0, height)
 
 	#FACE
 	surface.set_uv(Vector2(0,0))
 	surface.add_vertex(verts[1])
 	surface.set_uv(Vector2(0,1))
-	surface.add_vertex(Vector3(0,0,0))
+
+	surface.add_vertex(center)
+
 	surface.set_uv(Vector2(1,1))
 	surface.add_vertex(verts[0])
 
@@ -73,14 +147,14 @@ func build_mesh():
 	surface.set_uv(Vector2(0,1))
 	surface.add_vertex(verts[0])
 	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(-Vector3(0,0,height))
+	surface.add_vertex(center_back)
 
 	surface.set_uv(Vector2(0,0))
-	surface.add_vertex(-Vector3(0,0,height))
+	surface.add_vertex(center_back)
 	surface.set_uv(Vector2(0,1))
 	surface.add_vertex(verts[0])
 	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(Vector3(0,0,0))
+	surface.add_vertex(center)
 
 	#RIGHT Quad
 	surface.set_uv(Vector2(0,0))
@@ -88,25 +162,15 @@ func build_mesh():
 	surface.set_uv(Vector2(0,1))
 	surface.add_vertex(verts2[1])
 	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(-Vector3(0,0,height))
+	surface.add_vertex(center_back)
 
 
 	surface.set_uv(Vector2(0,0))
 	surface.add_vertex(verts[1])
 	surface.set_uv(Vector2(0,1))
-	surface.add_vertex(-Vector3(0,0,height))
+	surface.add_vertex(center_back)
 	surface.set_uv(Vector2(1,1))
-	surface.add_vertex(Vector3(0,0,0))
-
-	surface.index()
-	surface.generate_normals()
-	surface.generate_tangents()
-
-
-	surface.commit(_mesh)
-	vertices = verts
-
-	set_mesh(_mesh)
+	surface.add_vertex(center)
 
 
 func build_material():
@@ -119,6 +183,8 @@ func build_material():
 	set_instance_shader_parameter('y', float(y))
 	set_instance_shader_parameter('uvSplit', uv_split)
 	set_instance_shader_parameter('opening', float(opening))
+	set_instance_shader_parameter('fill', float(fill))
+
 
 func build_collision():
 	create_trimesh_collision()
@@ -130,8 +196,9 @@ func build_collision():
 
 
 func take_hit(collision_point : Vector3):
-	pass
-#	if get_parent().floating:
-#		get_parent().queue_free()
-#	else:
-#		queue_free()
+	if inactive == true:
+		pass
+	else:
+		inactive = true
+	acceleration = Vector3(randf_range(-10,10),randf_range(5,15),-randf_range(30,46))
+

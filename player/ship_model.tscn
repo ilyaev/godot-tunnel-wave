@@ -16,6 +16,7 @@ size = Vector3(6, 2.54217, 3)
 [node name="Spaceship_FinnTheFrog2" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_dbm1u")
 script = ExtResource("3_lxm15")
+metadata/side = "player"
 
 [node name="ShipBody" type="StaticBody3D" parent="Spaceship_FinnTheFrog2" index="0"]
 collision_layer = 4

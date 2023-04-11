@@ -40,16 +40,23 @@ func _process(delta):
 
 	enemies.loop = loop
 
-	if (current_z - loop.x) > 0:
-		spawn_target(loop.y)
+	# if (current_z - loop.x) > 0:
+	# 	spawn_target(loop.y)
 
 func spawn_target(index):
-	enemies.spawn(index, bullet_hit)
+	enemies.spawn(index, bullet_hit_enemy)
 
+func bullet_hit_enemy(mesh, ray : RayCast3D, bullet):
+	if mesh.has_method("take_hit"):
+		mesh.take_hit(ray.get_collision_point())
 
-func bullet_hit(mesh, ray : RayCast3D):
+func bullet_hit(mesh, ray : RayCast3D, bullet):
+	if ray.get_parent().get_meta("side", "ray") == mesh.get_meta("side", "mesg"):
+		return
+
+	bullet.queue_free()
 	var expl = explosion.instantiate()
-	expl.position = ray.get_collision_point()
+	expl.position = ray.get_collision_point() # mesh.get_parent().position
 	get_parent().add_child(expl)
 
 	if mesh.has_method("take_hit"):

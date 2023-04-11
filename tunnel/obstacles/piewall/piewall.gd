@@ -18,7 +18,7 @@ var pie = preload("res://tunnel/obstacles/piewall/pie.tscn")
 var shader_code : Shader = preload("res://tunnel/obstacles/piewall/pie.gdshader")
 
 func _ready():
-	rotate_z(PI/density + randi_range(0, density) * PI*2/density)
+	# rotate_z(PI/density + randi_range(0, density) * PI*2/density)
 	build_material()
 	var uv_scale =  1
 	var uv_split = false
@@ -41,7 +41,7 @@ func _ready():
 	# 	opening = randf()
 
 	for i in density:
-		if fill[i] == 1:
+		if fill[i] > 0:
 			var pi = pie.instantiate()
 			pi.density = density
 			pi.mat = mat
@@ -53,6 +53,7 @@ func _ready():
 			pi.uv_scale = uv_scale
 			pi.uv_split = uv_split
 			pi.opening = opening
+			pi.fill = fill[i]
 			add_child(pi)
 
 

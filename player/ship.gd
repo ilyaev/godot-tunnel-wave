@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 @export var autofire = false
@@ -17,7 +18,7 @@ var accelerationDecay = 0.15
 
 var T = 0
 
-signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D)
+signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D, bullet)
 
 @onready var bullet = preload("res://player/bullets/bullet.tscn")
 @onready var camera = $"../camera"
@@ -39,6 +40,7 @@ func _process(delta):
 	velocity = min(max_velocity, velocity + a*delta)
 	if T > 0.25 && autofire:
 		var b = bullet.instantiate()
+		b.set_meta('side', 'player')
 		b.init(position)
 		b.connect("bullet_hit", bullet_hit_func)
 		add_child(b)
@@ -101,18 +103,20 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("ui_accept"):
 		var b = bullet.instantiate()
+		b.set_meta('side', 'player')
 		b.init(position + bullet_point.position + Vector3(0,0,-0.5))
 		b.connect("bullet_hit", bullet_hit_func)
 		get_parent().add_child(b)
 
 		var b2 = bullet.instantiate()
+		b2.set_meta('side', 'player')
 		b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
 		b2.connect("bullet_hit", bullet_hit_func)
 		get_parent().add_child(b2)
 
-func bullet_hit_func(pos : Vector3, ray : RayCast3D):
+func bullet_hit_func(pos : Vector3, ray : RayCast3D, bullet):
 	var particle = ray.get_collider().get_parent()
-	bullet_hit.emit(particle, ray)
+	bullet_hit.emit(particle, ray, bullet)
 	pass
 
 func _on_area_3d_body_entered(body):

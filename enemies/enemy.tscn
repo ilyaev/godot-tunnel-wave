@@ -31,6 +31,7 @@ script = ExtResource("1_y1bgo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.170319, 0)
+visible = false
 mesh = SubResource("PrismMesh_an13s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -41,6 +42,7 @@ shape = SubResource("SphereShape3D_2ajiw")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.112475, 0.993655, 0, -0.993655, 0.112475, 0, 0, 0, 1, 0.329566, -0.15295, 0)
+visible = false
 mesh = SubResource("PrismMesh_an13s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
@@ -51,6 +53,7 @@ shape = SubResource("SphereShape3D_2ajiw")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.112399, -0.992983, 0.0367484, -0.993654, 0.112475, -1.84789e-18, -0.00413327, -0.0365152, -0.999325, -0.292229, -0.15295, 0)
+visible = false
 mesh = SubResource("PrismMesh_an13s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
@@ -61,6 +64,7 @@ shape = SubResource("SphereShape3D_2ajiw")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.99805, -0.0624247, 0, 0.0624247, -0.99805, 0, -0.496056, 0)
+visible = false
 mesh = SubResource("PrismMesh_an13s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]

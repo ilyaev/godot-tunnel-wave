@@ -7,6 +7,7 @@ instance uniform float y;
 instance uniform float uvScale;
 instance uniform bool uvSplit;
 instance uniform float opening;
+instance uniform float fill;
 
 void vertex() {
 	vertex_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -22,17 +23,21 @@ void fragment() {
 
 	vec3 borderColor = vec3(.9, .3, .1);
 	vec3 borderColorBlue = vec3(.1, .3, .9);
-
 	vec3 col = pow(.2/uv.x, 1.2) * borderColor;
-	col += pow(.2 / abs(uv.y - 1.), 1.2) * borderColor;
-	col += pow((.5 + sin(x + TIME * 3. + y) * .49) / abs(uv.y - uv.x), 1.2) * borderColorBlue;
 
-
-	if (uvSplit) {
-		col += pow(.2 / abs((uv.y - uv.x - .5 + sin(TIME + y + x) * .3)), 1.2) * vec3(.9, .3, .1);
+	if (fill < 1.) {
+		col += pow(.2 / abs(uv.y - 1.), 1.2) * borderColor;
+		col += pow((.5 + sin(x + TIME * 3. + y) * .49) / uv.y, 1.2) * borderColorBlue;
+		col += pow(.2/abs(uv.x - 1.), 1.2) * borderColor;
+		col /= 4.;
+	} else {
+		col += pow(.2 / abs(uv.y - 1.), 1.2) * borderColor;
+		col += pow((.5 + sin(x + TIME * 3. + y) * .49) / abs(uv.y - uv.x), 1.2) * borderColorBlue;
+		if (uvSplit) {
+			col += pow(.2 / abs((uv.y - uv.x - .5 + sin(TIME + y + x) * .3)), 1.2) * vec3(.9, .3, .1);
+		}
+		col /= 3.;
 	}
-
-	col /= 3.;
 
 	ALBEDO = col;
 	RIM = 0.;

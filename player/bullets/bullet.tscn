@@ -16,6 +16,7 @@ size = Vector3(0.08, 0.08, 1)
 
 [node name="bullet" type="Node3D"]
 script = ExtResource("1_fhb7q")
+metadata/side = ""
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_xiemg")

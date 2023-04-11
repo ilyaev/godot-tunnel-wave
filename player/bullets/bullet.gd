@@ -5,7 +5,7 @@ var velocity = 0.
 var direction = Vector3(0,0,1)
 var T = 0
 
-signal bullet_hit(pos, ray)
+signal bullet_hit(pos, ray, bullet)
 
 @onready var ray = $ray
 @onready var light = $light
@@ -27,8 +27,7 @@ func _process(delta):
 
 func _physics_process(_delta):
 	if ray.is_colliding():
-		bullet_hit.emit(ray.get_collision_point(), ray)
-		queue_free()
+		bullet_hit.emit(ray.get_collision_point(), ray, self)
 
 func init(pos):
 	position = pos
