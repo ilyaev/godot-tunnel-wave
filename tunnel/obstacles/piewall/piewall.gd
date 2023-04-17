@@ -18,7 +18,7 @@ var pie = preload("res://tunnel/obstacles/piewall/pie.tscn")
 var shader_code : Shader = preload("res://tunnel/obstacles/piewall/pie.gdshader")
 
 func _ready():
-	# rotate_z(PI/density + randi_range(0, density) * PI*2/density)
+	rotate_z(PI/density) # + randi_range(0, density) * PI*2/density)
 	build_material()
 	var uv_scale =  1
 	var uv_split = false
@@ -37,8 +37,8 @@ func _ready():
 	if uv_scale == 1 && randf() > .7:
 		uv_split = true
 
-	# if randf() > .5 && floating:
-	# 	opening = randf()
+	if randf() > .5:
+		opening = randf()
 
 	for i in density:
 		if fill[i] > 0:
@@ -71,11 +71,12 @@ func _process(delta):
 	T += delta
 	if is_rotating:
 		var wave = 0
-		if randf() > .7 && is_flickering:
-			wave = sin(T*6.5)
+		if abs(GlobalNoise.n21(y, T*50)) > .15 && is_flickering:
+			wave = sin(T*6.5)*(1 + 3*GlobalNoise.r21(y, 134))
 		else:
-			wave = cos(T*2.5)
-		rotate_z(delta * (PI/3 * (GlobalNoise.r21(y, 34)*2) - PI/6) * wave)
+			wave = cos(T*3.5)*(1 + 3*GlobalNoise.r21(y, 234))
+
+		rotate_z(delta * ((PI/3 * (GlobalNoise.r21(y, 34)*2) - PI/6) * wave))
 
 	if floating:
 		rotate_z(delta * PI/4)

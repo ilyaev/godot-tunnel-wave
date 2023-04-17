@@ -59,10 +59,13 @@ func bullet_hit(mesh, ray : RayCast3D, bullet):
 	expl.position = ray.get_collision_point() # mesh.get_parent().position
 	get_parent().add_child(expl)
 
-	if mesh.has_method("take_hit"):
-		mesh.take_hit(ray.get_collision_point())
+	if mesh.get_parent().has_method("take_hit"):
+		mesh.get_parent().take_hit(ray.get_collision_point())
 	else:
-		mesh.queue_free()
+		if mesh.has_method("take_hit"):
+			mesh.take_hit(ray.get_collision_point())
+		else:
+			mesh.queue_free()
 
 
 

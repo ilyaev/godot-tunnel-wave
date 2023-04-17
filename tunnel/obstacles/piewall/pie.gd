@@ -20,11 +20,17 @@ var velocity = Vector3(0,0,0)
 var acceleration = Vector3(0,0,0)
 var TTL = 3
 var T = 0
+var rot_speed
+var is_target = false
 
 func _ready():
+	rot_speed = PI * randf_range(0.5,3.5)
+	if  randf_range(0,1) > .6 && fill > .5:
+		is_target = true
 	build_mesh()
 	build_material()
 	build_collision()
+
 
 
 func _process(delta):
@@ -33,6 +39,10 @@ func _process(delta):
 
 	acceleration += gravity * delta
 	position += acceleration * delta
+	var center = Vector3(-vertices[1].x/2, -vertices[1].y/2, -height/2)
+	# if fill < 1:
+	# 	center = Vector3(-vertices[1].x/2,(-vertices[1].y * (1. - fill))/2, -height/2)
+	transform = transform.rotated(Vector3.FORWARD, -x * PI*2/density - PI/density).translated(center).rotated(Vector3.FORWARD, delta * rot_speed).translated(-center).rotated(Vector3.FORWARD, x * PI*2/density + PI/density)
 
 	T += delta
 	if T > TTL:
@@ -184,6 +194,7 @@ func build_material():
 	set_instance_shader_parameter('uvSplit', uv_split)
 	set_instance_shader_parameter('opening', float(opening))
 	set_instance_shader_parameter('fill', float(fill))
+	set_instance_shader_parameter('isTarget', is_target)
 
 
 func build_collision():
@@ -196,9 +207,13 @@ func build_collision():
 
 
 func take_hit(collision_point : Vector3):
+	if !is_target:
+		# is_target = true
+		# set_instance_shader_parameter('isTarget', is_target)
+		return
 	if inactive == true:
 		pass
 	else:
 		inactive = true
-	acceleration = Vector3(randf_range(-10,10),randf_range(5,15),-randf_range(30,46))
+	acceleration = Vector3(randf_range(-1,1),randf_range(5,15),-randf_range(30,46))
 

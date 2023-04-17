@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://p76xk68ux4c"]
+
+[ext_resource type="Script" path="res://tunnel/obstacles/block/block.gd" id="1_hy7k6"]
+[ext_resource type="Shader" path="res://tunnel/obstacles/block/block.gdshader" id="2_467fo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kn4y"]
+render_priority = 0
+shader = ExtResource("2_467fo")
+
+[sub_resource type="BoxMesh" id="BoxMesh_s8fnj"]
+material = SubResource("ShaderMaterial_3kn4y")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dogyo"]
+
+[node name="block" type="Node3D"]
+script = ExtResource("1_hy7k6")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_s8fnj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mesh"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mesh/StaticBody3D"]
+shape = SubResource("BoxShape3D_dogyo")

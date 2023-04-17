@@ -5,8 +5,10 @@ var size
 var spacing
 var length_base = 1
 var curr_index = -1
+var curr_index_block = -1
 
 var piewall = preload("res://tunnel/obstacles/piewall/piewall.tscn")
+var block = preload("res://tunnel/obstacles/block/block.tscn")
 
 
 func n21(x, y):
@@ -21,19 +23,36 @@ func _process(_delta):
 
 func sync_with_tube(z, densityFunc, radius, length):
 	var next_index = floorf(z / length_base)
-	if (next_index - curr_index) > 2:
+	if (next_index - curr_index) >= 1:
 		curr_index = next_index
 		loop.x = next_index
 		loop.y = loop.x + 8
 		var density = densityFunc.call(loop.y)
 		var R = (2 * radius * tan(PI / density)) / (2 * sin(PI / density))
 		spawn(loop.y, density, R, length)
+#	else:
+#		if (next_index - curr_index) >= 1:
+#			print([next_index, 'block'])
 
 func spawn(index, density, radius, height):
-	var n = abs(n21(index*22., 44.322))
-	if n > .1:
-		spawn_piewall(index, density, radius, height)
+	if fmod(index, 3) == 0:
+		var n = abs(n21(index*22., 44.322))
+		print([index, n])
+		if n > .1:
+			spawn_piewall(index, density, radius, height)
 
+	else:
+		if fmod(index, 2) == 0:
+			var n = abs(n21(index*12., 144.322))
+			if n > .2:
+				spawn_block(index)
+
+
+func spawn_block(index):
+	var obs = block.instantiate()
+	obs.y = index
+	obs.set_position(Vector3((randf()-.5)*3, (randf()-.5)*3, -index * length_base + length_base / 2.))
+	add_child(obs)
 
 func spawn_piewall(index, density, radius, height):
 	var obs = piewall.instantiate()
@@ -46,11 +65,10 @@ func spawn_piewall(index, density, radius, height):
 	for f in obs.density:
 		if n > .5:
 			if n > .7:
-				obs.fill.append(max(.2, min(1., abs(n21(index,f)*1.5))))
+				obs.fill.append(max(.15, min(1., abs(n21(index,f)*1.5))))
 			else:
 				var angle = 6.28/obs.density * f
-				var hn = max(.3, min(.8, abs(GlobalNoise.n21(index + sin(angle) * 2.5, index + cos(angle) * 2.5) * 2)))
-				print([index, f, hn])
+				var hn = max(.35, min(.9, abs(GlobalNoise.n21(index + sin(angle) * 3.5, index + cos(angle) * 2.5) * 2)))
 				obs.fill.append(hn)
 		else:
 			if n21(index, f) > .2:
