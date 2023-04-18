@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2lxwgajnwtqm"]
+
+[ext_resource type="Shader" path="res://tunnel/obstacles/lightning/lightning.gdshader" id="1_0wmsa"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1p6x1"]
+noise_type = 3
+seed = 4
+fractal_type = 0
+fractal_octaves = 2
+fractal_gain = 0.6
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2f5xq"]
+width = 768
+seamless = true
+seamless_blend_skirt = 0.123
+noise = SubResource("FastNoiseLite_1p6x1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1cc0j"]
+render_priority = 0
+shader = ExtResource("1_0wmsa")
+shader_parameter/noise = SubResource("NoiseTexture2D_2f5xq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jqjkr"]
+material = SubResource("ShaderMaterial_1cc0j")
+size = Vector2(5, 1)
+
+[node name="lightning" type="Node3D"]
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_jqjkr")

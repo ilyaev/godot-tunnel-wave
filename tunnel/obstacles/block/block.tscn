@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://p76xk68ux4c"]
+[gd_scene load_steps=7 format=3 uid="uid://p76xk68ux4c"]
 
 [ext_resource type="Script" path="res://tunnel/obstacles/block/block.gd" id="1_hy7k6"]
 [ext_resource type="Shader" path="res://tunnel/obstacles/block/block.gdshader" id="2_467fo"]
+[ext_resource type="PackedScene" uid="uid://d2lxwgajnwtqm" path="res://tunnel/obstacles/lightning/lightning.tscn" id="3_aonye"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3kn4y"]
 render_priority = 0
@@ -23,3 +24,9 @@ collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="mesh/StaticBody3D"]
 shape = SubResource("BoxShape3D_dogyo")
+
+[node name="lightning" parent="." instance=ExtResource("3_aonye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137478, 0, 0)
+
+[node name="lightning3" parent="." instance=ExtResource("3_aonye")]
+transform = Transform3D(-0.0108907, 0.999941, 0, -0.999941, -0.0108907, 0, 0, 0, 1, -0.019058, 0.0514718, 0.275002)

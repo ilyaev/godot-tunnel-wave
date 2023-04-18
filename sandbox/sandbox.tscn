@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch8go3grluo8w"]
+[gd_scene load_steps=6 format=3 uid="uid://ch8go3grluo8w"]
 
 [ext_resource type="Script" path="res://sandbox/sandbox.gd" id="1_dh124"]
+[ext_resource type="PackedScene" uid="uid://d2lxwgajnwtqm" path="res://tunnel/obstacles/lightning/lightning.tscn" id="2_mdk1f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pw1kn"]
 sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
@@ -29,3 +30,5 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.986349, -0.164669, 0, 0.164669, 0.986349, 0, 0.478206, 2.78745)
+
+[node name="lightning" parent="." instance=ExtResource("2_mdk1f")]

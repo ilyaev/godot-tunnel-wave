@@ -22,9 +22,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	rotate_y(delta * PI * noise.y)
-	rotate_x(delta * PI * noise.x)
-	rotate_y(delta * PI * noise.z)
+	$mesh.rotate_y(delta * PI * noise.y)
+	$mesh.rotate_x(delta * PI * noise.x)
+	$mesh.rotate_y(delta * PI * noise.z)
 	pass
 
 

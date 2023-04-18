@@ -35,16 +35,17 @@ func sync_with_tube(z, densityFunc, radius, length):
 #			print([next_index, 'block'])
 
 func spawn(index, density, radius, height):
-	if fmod(index, 3) == 0:
+	var spawned = false
+	if fmod(index, 4) == 0:
 		var n = abs(n21(index*22., 44.322))
-		print([index, n])
 		if n > .1:
+			spawned = true
 			spawn_piewall(index, density, radius, height)
-
 	else:
-		if fmod(index, 2) == 0:
+		if fmod(index, 3) == 0 && spawned == false:
 			var n = abs(n21(index*12., 144.322))
 			if n > .2:
+				spawned = true
 				spawn_block(index)
 
 
