@@ -17,6 +17,17 @@ func _ready():
 	$mesh.set_instance_shader_parameter('y', float(y))
 	$mesh.set_instance_shader_parameter('isTarget', is_target)
 	# scale = Vector3(max(.5,abs(noise.x)), max(.5,abs(noise.y)), max(.5,abs(noise.z))) * 1.5
+
+	var light_rot = GlobalNoise.n21(y, 23.22)*3
+	$lightnet.rotate_z(light_rot * PI * 2)
+
+	for i in range($lightnet.get_child_count()):
+		var light = $lightnet.get_child(i)
+		light.get_child(0).set_instance_shader_parameter('y', float(y))
+		light.get_child(0).set_instance_shader_parameter('x', float(i))
+		light.get_child(0).set_instance_shader_parameter('density', randf_range(10.,30.))
+		light.get_child(0).set_instance_shader_parameter('flick', randf_range(2.,8.))
+
 	pass # Replace with function body.
 
 
