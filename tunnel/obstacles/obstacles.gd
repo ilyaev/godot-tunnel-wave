@@ -6,6 +6,7 @@ var spacing
 var length_base = 1
 var curr_index = -1
 var curr_index_block = -1
+var prev_block_index = -1
 
 var piewall = preload("res://tunnel/obstacles/piewall/piewall.tscn")
 var block = preload("res://tunnel/obstacles/block/block.tscn")
@@ -44,9 +45,10 @@ func spawn(index, density, radius, height):
 	else:
 		if fmod(index, 3) == 0 && spawned == false:
 			var n = abs(n21(index*12., 144.322))
-			if n > .2:
+			if n > .3 and (index - prev_block_index) > 6:
 				spawned = true
 				spawn_block(index)
+				prev_block_index = index
 
 
 func spawn_block(index):
@@ -60,7 +62,7 @@ func spawn_piewall(index, density, radius, height):
 	obs.y = index;
 	obs.density = density
 	obs.radius = radius
-	obs.height = height
+	obs.height = height * .5
 	obs.fill.clear()
 	var n = randf_range(0, 1)
 	for f in obs.density:

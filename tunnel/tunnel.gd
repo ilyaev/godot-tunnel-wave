@@ -12,6 +12,7 @@ var explosion = preload("res://player/explosions/explosion.tscn")
 @onready var tube = $tube
 @onready var obstacles = $obstacles
 @onready var rocks = $rocks
+@onready var startube = $startube
 
 
 func n21(x, y):
@@ -35,6 +36,7 @@ func _process(delta):
 
 	tube.set_z(position.z)
 	rocks.set_z(position.z)
+	startube.position.z = -position.z - 9.;
 
 	obstacles.sync_with_tube(position.z, tube.get_density, tube.radius, tube.length )
 

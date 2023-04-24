@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2lxwgajnwtqm"]
+[gd_scene load_steps=8 format=3 uid="uid://d2lxwgajnwtqm"]
 
 [ext_resource type="Shader" path="res://tunnel/obstacles/lightning/lightning.gdshader" id="1_0wmsa"]
+[ext_resource type="Script" path="res://tunnel/obstacles/lightning/lightning.gd" id="1_1da3g"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1p6x1"]
 noise_type = 3
-seed = 4
+seed = 6
 fractal_type = 0
 fractal_octaves = 2
 fractal_gain = 0.6
@@ -12,6 +13,7 @@ domain_warp_enabled = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2f5xq"]
 width = 768
+generate_mipmaps = false
 seamless = true
 seamless_blend_skirt = 0.123
 noise = SubResource("FastNoiseLite_1p6x1")
@@ -25,7 +27,18 @@ shader_parameter/noise = SubResource("NoiseTexture2D_2f5xq")
 material = SubResource("ShaderMaterial_1cc0j")
 size = Vector2(5, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_iq6p8"]
+size = Vector3(5.00674, 0.390111, 0.263538)
+
 [node name="lightning" type="Node3D"]
+script = ExtResource("1_1da3g")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_jqjkr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mesh"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mesh/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.158417, 0)
+shape = SubResource("BoxShape3D_iq6p8")

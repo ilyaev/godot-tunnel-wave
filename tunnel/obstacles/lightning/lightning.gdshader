@@ -50,7 +50,7 @@ void fragment() {
 	float d = distanceFromSegment(uv + vec2(0., .5- n*(.2 + .2*abs(sin(TIME*10. + cos(uv.y))))), vec2(0., y1), vec2(1., y2));
     float line = pow(mag/d, 1.2);
 
-	vec3 col = line * max(vec3(0.3, 0.6, 0.3), vec3(sin(TIME + id.y), cos(TIME-id.y*3.), cos(TIME/2. + id.y/2.)));
+	vec3 col = line * max(vec3(0.3, 0.6, 0.3), vec3(sin(TIME + id.y + y), cos(TIME-id.y*3.-y*2.), cos(TIME/2. + id.y/2. + x*3.)));
 
 	EMISSION = col * 3.;
 	ALPHA = smoothstep(0.1, 1., (col.b + col.r + col.g)/3.);

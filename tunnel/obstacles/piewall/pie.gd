@@ -25,8 +25,8 @@ var is_target = false
 
 func _ready():
 	rot_speed = PI * randf_range(0.5,3.5)
-	if  randf_range(0,1) > .6 && fill > .5:
-		is_target = true
+	# if  randf_range(0,1) > .6 && fill > .5:
+	# 	is_target = true
 	build_mesh()
 	build_material()
 	build_collision()

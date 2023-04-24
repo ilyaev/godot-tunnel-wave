@@ -40,6 +40,12 @@ func _ready():
 	if randf() > .5:
 		opening = randf()
 
+	var fillRate = fill.reduce(func(res, item): return res + item, 0)
+	var targetIndex = -1
+
+	if fillRate/density > .49 or randf() > .5:
+		targetIndex = randi_range(0, density - 1)
+
 	for i in density:
 		if fill[i] > 0:
 			var pi = pie.instantiate()
@@ -54,6 +60,7 @@ func _ready():
 			pi.uv_split = uv_split
 			pi.opening = opening
 			pi.fill = fill[i]
+			pi.is_target = true if targetIndex == i else false
 			add_child(pi)
 
 

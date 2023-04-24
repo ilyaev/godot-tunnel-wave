@@ -1,12 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd16kmrnbkywb"]
+[gd_scene load_steps=9 format=3 uid="uid://cd16kmrnbkywb"]
 
 [ext_resource type="Script" path="res://tunnel/tunnel.gd" id="1_avkfn"]
 [ext_resource type="Script" path="res://enemies/enemies.gd" id="2_4nsna"]
 [ext_resource type="Script" path="res://tunnel/rocks/rocks.gd" id="3_3ggb3"]
 [ext_resource type="Script" path="res://tunnel/obstacles/obstacles.gd" id="3_3wvy7"]
 [ext_resource type="Script" path="res://tunnel/tube/tube.gd" id="5_8nbm8"]
+[ext_resource type="Shader" path="res://tunnel/startube.gdshader" id="6_t8kwk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3gxw"]
+render_priority = 0
+shader = ExtResource("6_t8kwk")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8u85w"]
+material = SubResource("ShaderMaterial_i3gxw")
+flip_faces = true
+cap_top = false
+cap_bottom = false
 
 [node name="tunnel" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_avkfn")
 
 [node name="enemies" type="Node3D" parent="."]
@@ -20,3 +32,7 @@ script = ExtResource("3_3ggb3")
 
 [node name="tube" type="Node3D" parent="."]
 script = ExtResource("5_8nbm8")
+
+[node name="startube" type="MeshInstance3D" parent="."]
+transform = Transform3D(9, -6.27817e-15, -2.74427e-22, 0, -3.93403e-07, 9, -6.27817e-15, -9, -3.93403e-07, 0, 0, -0.403775)
+mesh = SubResource("CylinderMesh_8u85w")
