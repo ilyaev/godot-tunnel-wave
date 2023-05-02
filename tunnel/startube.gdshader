@@ -14,8 +14,7 @@ float get_shape(vec2 uvo, float index, float frame) {
 	uv.x += sin(index);
 
 	float n = n21(vec2(id.y+index*3.2, id.x-index*43.2));
-	// return step(0.5, abs(uv.y - n)) * pow(.05/abs(uv.x - .5 - (fract(n*34.22)*.3)*2. - .3), 3.5);
-	if (n21(vec2(frame, 4334.22)) > .3) {
+	if (n21(vec2(frame, 4334.22)) > .1) {
 		return step(0.5, abs(uv.y - n)) * pow(.05/abs(uv.x - .5 - (fract(n*34.22)*.3)*2. - .3), 3.5);
 	} else {
 		return step(0.5, abs(uv.y - n)) * pow(.05/abs(uv.y - .5 - (fract(n*34.22)*.3)*2. - .3), 3.5);

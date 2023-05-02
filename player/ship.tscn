@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq2fom8mf0rya"]
+[gd_scene load_steps=6 format=3 uid="uid://dq2fom8mf0rya"]
 
 [ext_resource type="Script" path="res://player/ship.gd" id="1_bbk5x"]
+[ext_resource type="PackedScene" uid="uid://df7wdhqgnu4q5" path="res://player/burner.tscn" id="3_tg3ss"]
 [ext_resource type="PackedScene" uid="uid://bqe1t0cvsw5m1" path="res://player/ship_model.tscn" id="3_y4nt0"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_akt6a"]
@@ -9,7 +10,7 @@
 radius = 0.067
 
 [node name="ship" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.256, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385333, -0.256, -0.7)
 script = ExtResource("1_bbk5x")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
@@ -62,5 +63,15 @@ spot_angle_attenuation = 39.3966
 
 [node name="ship_model" parent="." instance=ExtResource("3_y4nt0")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="burner" parent="ship_model" instance=ExtResource("3_tg3ss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9996, 0.38977, 1.25888)
+
+[node name="burner2" parent="ship_model" instance=ExtResource("3_tg3ss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.985, 0.39, 1.178)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ship_model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.54351)
+spot_range = 1.0
 
 [connection signal="body_entered" from="mesh/Area3D" to="." method="_on_area_3d_body_entered"]

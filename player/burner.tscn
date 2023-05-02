@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://df7wdhqgnu4q5"]
+
+[ext_resource type="Shader" path="res://player/burner.gdshader" id="1_fjdpw"]
+
+[sub_resource type="Curve" id="Curve_ueufh"]
+_data = [Vector2(0.0257087, 0.358381), 0.0, 0.31518, 0, 0, Vector2(0.436761, 0.618778), 0.0, 0.0, 0, 0, Vector2(1, 0.0705734), -0.11438, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jt0hd"]
+curve = SubResource("Curve_ueufh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_22pvn"]
+emission_shape = 2
+emission_sphere_radius = 0.03
+particle_flag_align_y = true
+gravity = Vector3(2.08165e-12, 2.08165e-12, 9)
+tangential_accel_max = 3.0
+scale_curve = SubResource("CurveTexture_jt0hd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p4r3"]
+render_priority = 0
+shader = ExtResource("1_fjdpw")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pdlcr"]
+lightmap_size_hint = Vector2i(17, 9)
+material = SubResource("ShaderMaterial_8p4r3")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
+radial_segments = 8
+rings = 1
+
+[node name="burner" type="GPUParticles3D"]
+amount = 16
+lifetime = 0.2
+randomness = 0.98
+process_material = SubResource("ParticleProcessMaterial_22pvn")
+draw_pass_1 = SubResource("CylinderMesh_pdlcr")
