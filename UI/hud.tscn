@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://rlpv0k8os31"]
+
+[ext_resource type="Shader" path="res://UI/font.gdshader" id="1_6rbtc"]
+[ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="1_7af5w"]
+[ext_resource type="Script" path="res://UI/hud.gd" id="1_h4tmg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jj3fo"]
+shader = ExtResource("1_6rbtc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_utwo8"]
+font = ExtResource("1_7af5w")
+font_size = 64
+
+[node name="hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h4tmg")
+
+[node name="distance" type="Label" parent="."]
+material = SubResource("ShaderMaterial_jj3fo")
+layout_mode = 1
+anchors_preset = -1
+offset_left = 29.0
+offset_top = 20.0
+offset_right = 556.0
+offset_bottom = 124.0
+grow_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_utwo8")
+vertical_alignment = 1

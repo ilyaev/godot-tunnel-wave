@@ -5,7 +5,7 @@ extends Node3D
 
 var a = 5.
 var velocity = 0.
-var max_velocity = 10.
+var max_velocity = 11.
 var radius = 4.5
 var posVelocity = Vector2(0.,0.)
 var posAcceleration = Vector2(0., 0.)
@@ -30,6 +30,7 @@ signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D, bullet)
 @onready var ray4 = $mesh/ray4
 @onready var ray5 = $mesh/ray5
 @onready var bullet_point = $bullet_place
+@onready var collectorArea = $collectorArea
 
 func _ready():
 	pass # Replace with function body.
@@ -50,24 +51,49 @@ func _process(delta):
 
 
 func _physics_process(delta):
+
+	attract_goodies(delta)
+
+	var ray_collider
+
+	var prev_velocity = velocity
+	var prev_pos_velocity = posVelocity
+
 	if ray.is_colliding() :
+		ray_collider = ray.get_collider()
 		velocity = -3
 
 	if ray2.is_colliding():
 		velocity = 0
+		ray_collider = ray2.get_collider()
 		posVelocity = Vector2(-.05, 0)
 
 	if ray3.is_colliding():
 		velocity = 0
+		ray_collider = ray3.get_collider()
 		posVelocity = Vector2(.05, 0)
 
 	if ray4.is_colliding():
 		velocity = 0
+		ray_collider = ray4.get_collider()
 		posVelocity = Vector2(0., .05)
 
 	if ray5.is_colliding():
 		velocity = 0
+		ray_collider = ray5.get_collider()
 		posVelocity = Vector2(0., -.05)
+
+	if ray_collider:
+		if ray_collider.get_collision_layer_value(5):
+			var collider = ray_collider.get_parent()
+			if collider.has_method('take_hit'):
+				collider.take_hit(1)
+			if collider.get_parent() && collider.get_parent().has_method('take_hit'):
+				collider.get_parent().take_hit(1)
+			posVelocity = prev_pos_velocity
+			velocity = prev_velocity
+			return
+
 
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
@@ -113,6 +139,17 @@ func _physics_process(delta):
 		b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
 		b2.connect("bullet_hit", bullet_hit_func)
 		get_parent().add_child(b2)
+
+func attract_goodies(delta):
+	var goodies = collectorArea.get_overlapping_bodies()
+	if goodies.size() > 0:
+		for g in goodies:
+			if g.get_parent().has_method('attract'):
+				g.get_parent().attract(position, delta)
+			if g.get_parent().get_parent().has_method('attract'):
+				g.get_parent().get_parent().attract(position, delta)
+
+
 
 func bullet_hit_func(pos : Vector3, ray : RayCast3D, bullet):
 	var particle = ray.get_collider().get_parent()

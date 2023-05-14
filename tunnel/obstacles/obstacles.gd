@@ -31,9 +31,6 @@ func sync_with_tube(z, densityFunc, radius, length):
 		var density = densityFunc.call(loop.y)
 		var R = (2 * radius * tan(PI / density)) / (2 * sin(PI / density))
 		spawn(loop.y, density, R, length)
-#	else:
-#		if (next_index - curr_index) >= 1:
-#			print([next_index, 'block'])
 
 func spawn(index, density, radius, height):
 	var spawned = false

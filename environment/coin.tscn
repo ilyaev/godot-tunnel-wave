@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://f68f55wrbjo5"]
+
+[ext_resource type="PackedScene" uid="uid://dyhr2u5cxexjx" path="res://assets/sci-fi_coin.glb" id="1_opami"]
+[ext_resource type="Script" path="res://environment/coin.gd" id="1_q0b58"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mxwc"]
+size = Vector3(70, 7, 70)
+
+[node name="coin" type="Node3D"]
+script = ExtResource("1_q0b58")
+
+[node name="sci-fi_coin" parent="." instance=ExtResource("1_opami")]
+transform = Transform3D(0.01, -2.66569e-32, 2.91302e-40, 0, -1.74846e-09, -0.01, 6.66422e-33, 0.04, -4.37114e-10, 0, 0, -1.25204)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="sci-fi_coin"]
+transform = Transform3D(1, -5.20597e-38, -6.86636e-44, 1.32243e-38, 1, 3.33067e-16, -8.14154e-43, 2.77124e-15, 1, 0, 0, 0)
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sci-fi_coin/StaticBody3D"]
+transform = Transform3D(1, -5.20597e-38, -6.86636e-44, 8.66927e-38, 1, 3.33067e-16, -4.18988e-42, 2.77124e-15, 1, 8.31956e-29, 31.2098, -5.4569e-06)
+shape = SubResource("BoxShape3D_4mxwc")

@@ -1,4 +1,6 @@
-extends MeshInstance3D
+extends Control
+
+@onready var distance = $distance
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,5 +13,5 @@ func _process(delta):
 	pass
 
 
-func take_hit(pos: Vector3):
-	pass
+func set_distance(d):
+	distance.text = d

@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 assets/movie.avi
+wave.apk
+wave.apk.idsig

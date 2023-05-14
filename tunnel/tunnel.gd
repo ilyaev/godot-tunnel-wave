@@ -13,6 +13,7 @@ var explosion = preload("res://player/explosions/explosion.tscn")
 @onready var obstacles = $obstacles
 @onready var rocks = $rocks
 @onready var startube = $startube
+@onready var goodies = $goodies
 
 
 func n21(x, y):
@@ -24,6 +25,8 @@ func _ready():
 	obstacles.length_base = tube.length
 	enemies.size = size
 	enemies.spacing = spacing
+	goodies.size = size
+	goodies.spacing = spacing
 
 func _process(delta):
 	T += delta
@@ -41,9 +44,16 @@ func _process(delta):
 	obstacles.sync_with_tube(position.z, tube.get_density, tube.radius, tube.length )
 
 	enemies.loop = loop
+	goodies.loop = loop
 
 	# if (current_z - loop.x) > 0:
 	# 	spawn_target(loop.y)
+
+	if (current_z - loop.x) > 0:
+		spawn_goodies(loop.y)
+
+func spawn_goodies(index):
+	goodies.spawn(index)
 
 func spawn_target(index):
 	enemies.spawn(index, bullet_hit_enemy)

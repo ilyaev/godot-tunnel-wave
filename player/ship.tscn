@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dq2fom8mf0rya"]
+[gd_scene load_steps=7 format=3 uid="uid://dq2fom8mf0rya"]
 
 [ext_resource type="Script" path="res://player/ship.gd" id="1_bbk5x"]
 [ext_resource type="PackedScene" uid="uid://df7wdhqgnu4q5" path="res://player/burner.tscn" id="3_tg3ss"]
@@ -7,7 +7,10 @@
 [sub_resource type="SphereMesh" id="SphereMesh_akt6a"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cpvxp"]
-radius = 0.067
+radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_edsyj"]
+radius = 1.6
 
 [node name="ship" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385333, -0.256, -0.7)
@@ -20,27 +23,27 @@ mesh = SubResource("SphereMesh_akt6a")
 [node name="ray" type="RayCast3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0.581884)
 target_position = Vector3(2.08165e-12, 2.08165e-12, -0.2)
-collision_mask = 4
+collision_mask = 20
 
 [node name="ray2" type="RayCast3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.000700951)
 target_position = Vector3(0.1, 2.08165e-12, 2.08165e-12)
-collision_mask = 4
+collision_mask = 20
 
 [node name="ray3" type="RayCast3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.0720415)
 target_position = Vector3(-0.1, 2.08165e-12, 2.08165e-12)
-collision_mask = 4
+collision_mask = 20
 
 [node name="ray4" type="RayCast3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.0657153)
 target_position = Vector3(2.08165e-12, -0.1, 2.08165e-12)
-collision_mask = 4
+collision_mask = 20
 
 [node name="ray5" type="RayCast3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.0657153)
 target_position = Vector3(2.08165e-12, 0.1, 2.08165e-12)
-collision_mask = 4
+collision_mask = 20
 
 [node name="Area3D" type="Area3D" parent="mesh"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
@@ -73,5 +76,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.985, 0.39, 1.178)
 [node name="SpotLight3D" type="SpotLight3D" parent="ship_model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.54351)
 spot_range = 1.0
+
+[node name="collectorArea" type="Area3D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collectorArea"]
+shape = SubResource("SphereShape3D_edsyj")
 
 [connection signal="body_entered" from="mesh/Area3D" to="." method="_on_area_3d_body_entered"]

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameConfig="*res://globals/config.gd"
 GlobalNoise="*res://globals/noise.gd"
+Score="*res://globals/score.gd"
 
 [debug]
 
@@ -38,8 +39,13 @@ movie_writer/movie_file="/Users/ilyaev/godot/godot-tunnel-wave/assets/movie.avi"
 
 import/fbx/enabled=false
 
+[global]
+
+goodies=false
+
 [layer_names]
 
 3d_physics/layer_1="ship"
 3d_physics/layer_2="tube_walls"
 3d_physics/layer_3="enemy"
+3d_physics/layer_5="goodies"
