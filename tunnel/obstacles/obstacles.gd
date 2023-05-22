@@ -32,7 +32,10 @@ func sync_with_tube(z, densityFunc, radius, length):
 		var R = (2 * radius * tan(PI / density)) / (2 * sin(PI / density))
 		spawn(loop.y, density, R, length)
 
+
 func spawn(index, density, radius, height):
+	var start = Time.get_ticks_usec()
+
 	var spawned = false
 	if fmod(index, 4) == 0:
 		var n = abs(n21(index*22., 44.322))
@@ -46,6 +49,12 @@ func spawn(index, density, radius, height):
 				spawned = true
 				spawn_block(index)
 				prev_block_index = index
+
+	var end = Time.get_ticks_usec()
+	var worker_time = (end-start)/1000000.0
+
+	# Score.Hud.set_distance(str(worker_time))
+	# print('spawn worker time: ', worker_time)
 
 
 func spawn_block(index):

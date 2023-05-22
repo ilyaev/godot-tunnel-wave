@@ -16,10 +16,10 @@ signal bullet_hit(pos, ray, bullet)
 # 		mesh.get_active_material(0).emission = Color(1,0,0,1)
 
 func _process(delta):
-	T += 0
+	T += delta
 	velocity = velocity + a * delta
 	position += direction * velocity
-	if T > 3:
+	if T > 1.5:
 		queue_free()
 	if direction.z < 0 && T > 0.2:
 		light.hide()

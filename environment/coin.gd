@@ -18,7 +18,8 @@ func _process(delta):
 
 func take_hit(mask):
 	queue_free()
-	Score.coin()
+	if typeof(mask) == 2:
+		Score.coin()
 	hit = true
 
 func attract(target_pos, delta):

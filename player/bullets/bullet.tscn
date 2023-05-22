@@ -30,4 +30,4 @@ light_size = 0.167
 [node name="ray" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.942983)
 target_position = Vector3(2.08165e-12, 2.08165e-12, -2)
-collision_mask = 4
+collision_mask = 20

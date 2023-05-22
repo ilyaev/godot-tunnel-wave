@@ -22,26 +22,39 @@ var TTL = 3
 var T = 0
 var rot_speed
 var is_target = false
+var thread = Thread.new()
+var mutex = Mutex.new()
+var start
+var end
 
 func _ready():
 	rot_speed = PI * randf_range(0.5,3.5)
-	# if  randf_range(0,1) > .6 && fill > .5:
-	# 	is_target = true
+	var callable = Callable(self, 'async_build')
+	thread.start(callable)
+
+func async_build():
+
+	mutex.lock()
+
 	build_mesh()
 	build_material()
-	build_collision()
+	call_deferred("build_collision")
 
-
+	mutex.unlock()
 
 func _process(delta):
+
+	if thread.is_started() && !thread.is_alive():
+		thread.wait_to_finish()
+
 	if inactive == false:
 		return
-
 	acceleration += gravity * delta
 	position += acceleration * delta
+
 	var center = Vector3(-vertices[1].x/2, -vertices[1].y/2, -height/2)
-	# if fill < 1:
-	# 	center = Vector3(-vertices[1].x/2,(-vertices[1].y * (1. - fill))/2, -height/2)
+
+
 	transform = transform.rotated(Vector3.FORWARD, -x * PI*2/density - PI/density).translated(center).rotated(Vector3.FORWARD, delta * rot_speed).translated(-center).rotated(Vector3.FORWARD, x * PI*2/density + PI/density)
 
 	T += delta

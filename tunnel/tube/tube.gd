@@ -21,7 +21,6 @@ func _ready():
 
 func _process(delta):
 	T += delta
-	# rotate_z(delta * PI*n21(curr_episode, 343))
 
 
 func n21(x, y):

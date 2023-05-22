@@ -5,7 +5,7 @@ extends Node3D
 
 var a = 5.
 var velocity = 0.
-var max_velocity = 11.
+var max_velocity = 7.
 var radius = 4.5
 var posVelocity = Vector2(0.,0.)
 var posAcceleration = Vector2(0., 0.)
@@ -39,13 +39,16 @@ func _ready():
 func _process(delta):
 	T += delta
 	velocity = min(max_velocity, velocity + a*delta)
-	if T > 0.25 && autofire:
-		var b = bullet.instantiate()
-		b.set_meta('side', 'player')
-		b.init(position)
-		b.connect("bullet_hit", bullet_hit_func)
-		add_child(b)
-		T = 0
+	# if T > 0.25 && autofire:
+	# 	var b = bullet.instantiate()
+	# 	b.set_meta('side', 'player')
+	# 	b.init(position)
+	# 	b.connect("bullet_hit", bullet_hit_func)
+	# 	add_child(b)
+	# 	T = 0
+	max_velocity = 10 + T/3
+	# print(max_velocity)
+
 	pass
 
 
@@ -64,22 +67,18 @@ func _physics_process(delta):
 		velocity = -3
 
 	if ray2.is_colliding():
-		velocity = 0
 		ray_collider = ray2.get_collider()
 		posVelocity = Vector2(-.05, 0)
 
 	if ray3.is_colliding():
-		velocity = 0
 		ray_collider = ray3.get_collider()
 		posVelocity = Vector2(.05, 0)
 
 	if ray4.is_colliding():
-		velocity = 0
 		ray_collider = ray4.get_collider()
 		posVelocity = Vector2(0., .05)
 
 	if ray5.is_colliding():
-		velocity = 0
 		ray_collider = ray5.get_collider()
 		posVelocity = Vector2(0., -.05)
 
@@ -93,6 +92,8 @@ func _physics_process(delta):
 			posVelocity = prev_pos_velocity
 			velocity = prev_velocity
 			return
+		else:
+			on_ray_collide()
 
 
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -139,6 +140,10 @@ func _physics_process(delta):
 		b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
 		b2.connect("bullet_hit", bullet_hit_func)
 		get_parent().add_child(b2)
+
+
+func on_ray_collide():
+	T = 0
 
 func attract_goodies(delta):
 	var goodies = collectorArea.get_overlapping_bodies()

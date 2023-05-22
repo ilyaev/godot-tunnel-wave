@@ -3,11 +3,11 @@ extends Node3D
 var y = 0
 var noise = Vector3(0,0,0)
 var is_target = false
+var is_hit = false
 
 
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 
 	noise = Vector3(randf_range(-1,1),randf_range(-1,1),randf_range(-1,1))
@@ -28,10 +28,9 @@ func _ready():
 		light.get_child(0).set_instance_shader_parameter('density', randf_range(10.,30.))
 		light.get_child(0).set_instance_shader_parameter('flick', randf_range(2.,8.))
 
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$mesh.rotate_y(delta * PI * noise.y)
 	$mesh.rotate_x(delta * PI * noise.x)
@@ -41,5 +40,8 @@ func _process(delta):
 
 func take_hit(collision_point : Vector3):
 	if is_target:
+		if !is_hit:
+			get_parent().get_parent().coins_explode(collision_point)
+		is_hit = true
 		queue_free()
 	pass

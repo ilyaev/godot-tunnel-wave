@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cln3srsuybkg0"]
+[gd_scene load_steps=7 format=3 uid="uid://cln3srsuybkg0"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4rmi1"]
 [ext_resource type="Environment" uid="uid://bjrg33efvf358" path="res://environment/env_v1.tres" id="1_dovhe"]
 [ext_resource type="PackedScene" uid="uid://cd16kmrnbkywb" path="res://tunnel/tunnel.tscn" id="2_cnl0x"]
 [ext_resource type="PackedScene" uid="uid://d352utt1qgoo" path="res://player/player.tscn" id="3_leqjq"]
 [ext_resource type="PackedScene" uid="uid://rlpv0k8os31" path="res://UI/hud.tscn" id="5_b8vtl"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="6_kjorq"]
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_4rmi1")
@@ -17,3 +18,7 @@ environment = ExtResource("1_dovhe")
 [node name="head" parent="." instance=ExtResource("3_leqjq")]
 
 [node name="hud" parent="." instance=ExtResource("5_b8vtl")]
+
+[node name="Virtual Joystick" parent="hud" instance=ExtResource("6_kjorq")]
+layout_mode = 1
+pressed_color = Color(0.329006, 0.871938, 0.443693, 1)

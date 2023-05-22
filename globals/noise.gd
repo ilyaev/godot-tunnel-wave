@@ -3,6 +3,7 @@ extends Node
 var noise
 var random_noise
 var seed
+var usage = 0
 
 func _ready():
 	seed = randf() * 345

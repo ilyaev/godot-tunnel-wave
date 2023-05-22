@@ -41,11 +41,10 @@ func spawn(index):
 		c.y = index
 
 		var pos = Vector3(0,0,0)
-		var nn = n21(c.y/5., 2.145)
 
 		pos.z = -c.y * size * spacing
-		pos.x = nn*4.
-		pos.y = (fposmod(nn*100.33, 1.) - 0.5) * 4
+		pos.x = GlobalNoise.n21(c.y*3, 23.22) * 4
+		pos.y = GlobalNoise.n21(c.y*3, 43.22) * 4
 
 		c.position = pos
 

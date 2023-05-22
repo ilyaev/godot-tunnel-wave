@@ -7,6 +7,7 @@ var T = 0
 var hidden_rocks = {}
 
 var explosion = preload("res://player/explosions/explosion.tscn")
+var coin = preload("res://environment/coin.tscn")
 
 @onready var enemies  = $enemies
 @onready var tube = $tube
@@ -27,6 +28,8 @@ func _ready():
 	enemies.spacing = spacing
 	goodies.size = size
 	goodies.spacing = spacing
+
+	coins_explode(Vector3(0,0,-7))
 
 func _process(delta):
 	T += delta
@@ -81,3 +84,12 @@ func bullet_hit(mesh, ray : RayCast3D, bullet):
 
 
 
+func coins_explode(center):
+	print([center, position])
+	var num_coins = 8
+	for i in range(0, num_coins):
+		var expl = coin.instantiate()
+		expl.y = round(position.z + i)
+		var pos = Vector3(sin((2*PI/num_coins) * i)*(1 + randf_range(-.1, .1)), cos((2*PI/num_coins) * i)*(1 + randf_range(-.1, .1)), -position.z)
+		expl.position = center + pos
+		add_child(expl)

@@ -17,10 +17,6 @@ func _ready():
 func n21(x, y):
 	return GlobalNoise.n21(x, y) * 1.3
 
-
-func get_radius(y, t):
-	return base_radius + abs(n21(y, t) * 3.5)
-
 func step(edge,value):
 	return 1.0 - max(sign(edge-value),0.0)
 
@@ -28,17 +24,17 @@ func _process(delta):
 	T += delta
 	for i in range(get_child_count()):
 		var mesh = get_child(i)
-		var n = n21(mesh.y/10., 12.345)
-		var radius = base_radius
 
-		if abs(n) > 0.3:
-			radius = lerpf(get_radius(mesh.y, floor(T+n*3)*10), get_radius(mesh.y, ceilf(T+n*3)*10),  fposmod(T+n*3, 1.))
+		var n = mesh.n.x
+
+		var radius = base_radius
 
 		var pos = Vector3(0,0,0)
 
 		var angle = a_step * mesh.x + mesh.y*(2 * n)
 
-		var rotatingN = GlobalNoise.r21(mesh.y, 44.33) * 3
+		var rotatingN = mesh.n.y
+
 		angle += sin(T + rotatingN * 5.) * step(.7, rotatingN) * (PI + PI/8*rotatingN)
 
 		pos.x = sin(angle) * radius
@@ -54,6 +50,9 @@ func set_z(z):
 			var mesh = get_child(i)
 			mesh.y += 1
 			mesh.set_instance_shader_parameter('y', float(mesh.y))
+
+			generate_rock_noise(mesh)
+
 			var major_episode = floor(mesh.y / GameConfig.MAJOR_TUBE_EPISODE_SIZE)
 			var major_noise = n21(major_episode, GlobalNoise.seed * 3)
 			if major_noise > .5:
@@ -73,4 +72,9 @@ func create_mesh():
 			mesh.y = d
 			mesh.set_instance_shader_parameter('x', float(mesh.x))
 			mesh.set_instance_shader_parameter('y', float(mesh.y))
+			generate_rock_noise(mesh)
+
 			add_child(mesh)
+
+func generate_rock_noise(mesh):
+	mesh.n = Vector3(n21(mesh.y/10., 12.345), GlobalNoise.r21(mesh.y, 44.33) * 3, 0)

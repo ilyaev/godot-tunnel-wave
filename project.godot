@@ -28,12 +28,12 @@ settings/stdout/print_fps=true
 
 [display]
 
-window/size/viewport_width=2304
-window/size/viewport_height=1296
+window/stretch/mode="viewport"
 
 [editor]
 
 movie_writer/movie_file="/Users/ilyaev/godot/godot-tunnel-wave/assets/movie.avi"
+run/main_run_args="--verbose"
 
 [filesystem]
 
