@@ -21,4 +21,8 @@ environment = ExtResource("1_dovhe")
 
 [node name="Virtual Joystick" parent="hud" instance=ExtResource("6_kjorq")]
 layout_mode = 1
+offset_left = 5.0
+offset_top = -255.0
+offset_right = 240.0
+offset_bottom = 0.0
 pressed_color = Color(0.329006, 0.871938, 0.443693, 1)

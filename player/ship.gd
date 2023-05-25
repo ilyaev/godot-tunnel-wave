@@ -39,16 +39,8 @@ func _ready():
 func _process(delta):
 	T += delta
 	velocity = min(max_velocity, velocity + a*delta)
-	# if T > 0.25 && autofire:
-	# 	var b = bullet.instantiate()
-	# 	b.set_meta('side', 'player')
-	# 	b.init(position)
-	# 	b.connect("bullet_hit", bullet_hit_func)
-	# 	add_child(b)
-	# 	T = 0
 	max_velocity = 10 + T/3
-	# print(max_velocity)
-
+	Score.set_speed(max_velocity)
 	pass
 
 

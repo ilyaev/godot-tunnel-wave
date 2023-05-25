@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://rlpv0k8os31"]
+[gd_scene load_steps=9 format=3 uid="uid://rlpv0k8os31"]
 
 [ext_resource type="Shader" path="res://UI/font.gdshader" id="1_6rbtc"]
 [ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="1_7af5w"]
 [ext_resource type="Script" path="res://UI/hud.gd" id="1_h4tmg"]
+[ext_resource type="Shader" path="res://UI/speed.gdshader" id="4_pe6ee"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jj3fo"]
 shader = ExtResource("1_6rbtc")
@@ -10,6 +11,14 @@ shader = ExtResource("1_6rbtc")
 [sub_resource type="LabelSettings" id="LabelSettings_utwo8"]
 font = ExtResource("1_7af5w")
 font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_lkyd0"]
+font = ExtResource("1_7af5w")
+font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbc5i"]
+shader = ExtResource("4_pe6ee")
+shader_parameter/progress = 0.5
 
 [node name="hud" type="Control"]
 layout_mode = 3
@@ -24,11 +33,32 @@ script = ExtResource("1_h4tmg")
 material = SubResource("ShaderMaterial_jj3fo")
 layout_mode = 1
 anchors_preset = -1
-offset_left = 29.0
-offset_top = 20.0
-offset_right = 556.0
-offset_bottom = 124.0
+offset_left = 19.0
+offset_top = 3.0
+offset_right = 256.0
+offset_bottom = 74.0
 grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_utwo8")
 vertical_alignment = 1
+
+[node name="distance2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_jj3fo")
+layout_mode = 1
+anchors_preset = -1
+offset_left = 765.0
+offset_top = 1.0
+offset_right = 1068.0
+offset_bottom = 72.0
+grow_horizontal = 0
+text = "Stage 1"
+label_settings = SubResource("LabelSettings_lkyd0")
+vertical_alignment = 1
+
+[node name="speedrect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tbc5i")
+layout_mode = 0
+offset_left = 248.0
+offset_top = 20.0
+offset_right = 753.0
+offset_bottom = 45.0
