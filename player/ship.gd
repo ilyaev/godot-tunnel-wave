@@ -9,6 +9,7 @@ var max_velocity = 7.
 var radius = 4.5
 var posVelocity = Vector2(0.,0.)
 var posAcceleration = Vector2(0., 0.)
+var lives = 5
 
 
 var accelerationRange = .9
@@ -33,6 +34,7 @@ signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D, bullet)
 @onready var collectorArea = $collectorArea
 
 func _ready():
+	lives = 5
 	pass # Replace with function body.
 
 
@@ -41,6 +43,7 @@ func _process(delta):
 	velocity = min(max_velocity, velocity + a*delta)
 	max_velocity = 10 + T/3
 	Score.set_speed(max_velocity)
+	Score.set_lives(lives)
 	pass
 
 
@@ -135,6 +138,11 @@ func _physics_process(delta):
 
 
 func on_ray_collide():
+	if T > 1.:
+		lives -= 1
+		if lives <= 0:
+			lives = 5.
+		Score.set_lives(lives)
 	T = 0
 
 func attract_goodies(delta):

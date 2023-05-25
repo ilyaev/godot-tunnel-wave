@@ -14,3 +14,6 @@ func coin():
 
 func set_speed(speed):
     Hud.set_speed(str(speed))
+
+func set_lives(lives):
+    Hud.set_life(lives)

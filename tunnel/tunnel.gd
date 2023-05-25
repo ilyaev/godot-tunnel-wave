@@ -86,10 +86,31 @@ func bullet_hit(mesh, ray : RayCast3D, bullet):
 
 func coins_explode(center):
 	var num_coins = 8
+	var helix_len = 1
+	var angle_shift = randf_range(0, 2*PI) - PI
+	var z_width = .2 + randf_range(0, .5)
+
+	var rn = randf_range(0, 1.)
+	if rn > .5:
+		helix_len = 2
+		num_coins = 16
+		z_width *= .8;
+
+	if rn > .8:
+		num_coins = 8;
+		z_width = 0.;
+		helix_len = 1;
+
 	for i in range(0, num_coins):
 		var expl = coin.instantiate()
+		var angle = ((helix_len * 2) * PI) / num_coins
 		expl.y = round(position.z + i)
-		var pos = Vector3(sin((2*PI/num_coins) * i)*(1 + randf_range(-.1, .1)), cos((2*PI/num_coins) * i)*(1 + randf_range(-.1, .1)), -position.z - 6)
-		expl.position = center + Vector3(0,0,-position.z - 2)
+		var z_shift = i * z_width;
+		var pos = Vector3(
+			sin(angle_shift + angle * i)*(1 + randf_range(-.1, .1)),
+			cos(angle_shift + angle * i)*(1 + randf_range(-.1, .1)),
+			-position.z - 6 - z_shift
+		)
+		expl.position = center + Vector3(0,0,-position.z - 2 - z_shift)
 		expl.target_position = center + pos
 		add_child(expl)
