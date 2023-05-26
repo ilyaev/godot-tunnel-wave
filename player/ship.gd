@@ -15,7 +15,7 @@ var lives = 5
 var accelerationRange = .9
 var speedRange = 1.9
 var accelerationDecay = 0.15
-
+var stage_current = 1
 
 var T = 0
 
@@ -39,17 +39,28 @@ func _ready():
 
 
 func _process(delta):
+	if Score.is_game_over:
+		velocity = 0
+		return
 	T += delta
 	velocity = min(max_velocity, velocity + a*delta)
 	max_velocity = 10 + T/3
+
 	Score.set_speed(max_velocity)
 	Score.set_lives(lives)
+
+	if Score.stage != stage_current:
+		stage_current = Score.stage
+		velocity = 0
+		T = 0
+
 	pass
 
 
 
 func _physics_process(delta):
-
+	if Score.is_game_over:
+		return
 	attract_goodies(delta)
 
 	var ray_collider
@@ -141,8 +152,10 @@ func on_ray_collide():
 	if T > 1.:
 		lives -= 1
 		if lives <= 0:
-			lives = 5.
-		Score.set_lives(lives)
+			lives = 5;
+			Score.game_over()
+		else:
+			Score.set_lives(lives)
 	T = 0
 
 func attract_goodies(delta):

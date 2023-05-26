@@ -4,14 +4,21 @@ var x = 0
 var y = 0
 var hit = false
 var target_position
+var delay = 0
+var T = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	delay = randf_range(0, .15)
+	hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	T += delta
+	if T < delay:
+		return
+	else:
+		show()
 	rotate_z(delta * sin(y)*PI)
 	rotate_y(delta * cos(y)*PI*.5)
 	rotate_x(delta * cos(y+sin(y))*.3)

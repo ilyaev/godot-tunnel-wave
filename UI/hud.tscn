@@ -55,16 +55,18 @@ label_settings = SubResource("LabelSettings_utwo8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="distance2" type="Label" parent="."]
+[node name="stage" type="Label" parent="."]
 material = SubResource("ShaderMaterial_jj3fo")
 layout_mode = 1
 anchors_preset = -1
-offset_left = 603.0
-offset_right = 906.0
-offset_bottom = 71.0
+offset_left = 592.0
+offset_top = -2.0
+offset_right = 751.0
+offset_bottom = 69.0
 grow_horizontal = 0
 text = "Stage 1"
 label_settings = SubResource("LabelSettings_lkyd0")
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="speedrect" type="ColorRect" parent="."]

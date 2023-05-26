@@ -114,3 +114,9 @@ func coins_explode(center):
 		expl.position = center + Vector3(0,0,-position.z - 2 - z_shift)
 		expl.target_position = center + pos
 		add_child(expl)
+
+
+func next_stage():
+	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-2))
+	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-5))
+	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-8))

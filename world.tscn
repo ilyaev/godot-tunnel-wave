@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cln3srsuybkg0"]
+[gd_scene load_steps=12 format=3 uid="uid://cln3srsuybkg0"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4rmi1"]
 [ext_resource type="Environment" uid="uid://bjrg33efvf358" path="res://environment/env_v1.tres" id="1_dovhe"]
@@ -6,6 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://d352utt1qgoo" path="res://player/player.tscn" id="3_leqjq"]
 [ext_resource type="PackedScene" uid="uid://rlpv0k8os31" path="res://UI/hud.tscn" id="5_b8vtl"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="6_kjorq"]
+[ext_resource type="Script" path="res://UI/gameover.gd" id="7_ve0ij"]
+[ext_resource type="Shader" path="res://UI/font.gdshader" id="8_nt0cy"]
+[ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="9_6bsbg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4na0c"]
+shader = ExtResource("8_nt0cy")
+
+[sub_resource type="LabelSettings" id="LabelSettings_najij"]
+font = ExtResource("9_6bsbg")
+font_size = 128
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_4rmi1")
@@ -26,3 +36,21 @@ offset_top = -255.0
 offset_right = 240.0
 offset_bottom = 0.0
 pressed_color = Color(0.329006, 0.871938, 0.443693, 1)
+
+[node name="gameover" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1164.0
+offset_bottom = 646.0
+script = ExtResource("7_ve0ij")
+
+[node name="Label" type="Label" parent="gameover"]
+material = SubResource("ShaderMaterial_4na0c")
+layout_mode = 0
+offset_left = 187.0
+offset_top = 256.0
+offset_right = 971.0
+offset_bottom = 413.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_najij")
