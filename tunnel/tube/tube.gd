@@ -97,3 +97,10 @@ func create_mesh():
 			mesh.y = y
 			mesh.set_instance_shader_parameter('x', float(mesh.x))
 			sync_section(mesh)
+
+func restart():
+	current = 0
+	curr_episode = 0
+	for i in get_child_count():
+		get_child(i).queue_free()
+	create_mesh()

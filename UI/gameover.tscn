@@ -1,0 +1,150 @@
+[gd_scene load_steps=13 format=3 uid="uid://6ppdald2cjh5"]
+
+[ext_resource type="Script" path="res://UI/gameover.gd" id="1_jm0t7"]
+[ext_resource type="Shader" path="res://UI/font.gdshader" id="2_bbti3"]
+[ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="3_mhp20"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4na0c"]
+shader = ExtResource("2_bbti3")
+shader_parameter/is_gradient = true
+shader_parameter/gradient_shift = 0.1
+shader_parameter/gradient_color = Vector3(0.9, 0.3, 0.1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7efmc"]
+font = ExtResource("3_mhp20")
+font_size = 164
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a22hb"]
+shader = ExtResource("2_bbti3")
+shader_parameter/is_gradient = true
+shader_parameter/gradient_shift = 0.5
+shader_parameter/gradient_color = Vector3(0.9, 0.3, 0.1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jamcf"]
+font = ExtResource("3_mhp20")
+font_size = 128
+
+[sub_resource type="Animation" id="Animation_b3e54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("score_text:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(166, 657)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("continue_text:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_np4y4"]
+resource_name = "game_over"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("game_over_text:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9),
+"transitions": PackedFloat32Array(1, 0.5, 6),
+"update": 0,
+"values": [Vector2(80, 256), Vector2(80, 256), Vector2(80, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("score_text:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector2(150, 657), Vector2(150, 280)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("continue_text:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dw6t0"]
+_data = {
+"RESET": SubResource("Animation_b3e54"),
+"game_over": SubResource("Animation_np4y4")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iptqp"]
+shader = ExtResource("2_bbti3")
+shader_parameter/is_gradient = false
+shader_parameter/gradient_shift = 0.3
+shader_parameter/gradient_color = Vector3(0.1, 0.3, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2u70d"]
+font = ExtResource("3_mhp20")
+font_size = 48
+
+[node name="gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1164.0
+offset_bottom = 646.0
+script = ExtResource("1_jm0t7")
+
+[node name="game_over_text" type="Label" parent="."]
+material = SubResource("ShaderMaterial_4na0c")
+layout_mode = 0
+offset_left = 80.0
+offset_right = 1081.0
+offset_bottom = 175.001
+text = "Game Over"
+label_settings = SubResource("LabelSettings_7efmc")
+
+[node name="score_text" type="Label" parent="."]
+material = SubResource("ShaderMaterial_a22hb")
+layout_mode = 0
+offset_left = 166.0
+offset_top = 657.0
+offset_right = 1025.0
+offset_bottom = 795.001
+text = "Score: 1234"
+label_settings = SubResource("LabelSettings_jamcf")
+horizontal_alignment = 1
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dw6t0")
+}
+
+[node name="continue_text" type="Label" parent="."]
+material = SubResource("ShaderMaterial_iptqp")
+layout_mode = 0
+offset_left = 364.0
+offset_top = 461.0
+offset_right = 783.0
+offset_bottom = 515.0
+text = "Press any Key"
+label_settings = SubResource("LabelSettings_2u70d")

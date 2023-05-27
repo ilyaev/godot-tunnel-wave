@@ -13,6 +13,9 @@ shader_parameter/lives = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jj3fo"]
 shader = ExtResource("1_6rbtc")
+shader_parameter/is_gradient = false
+shader_parameter/gradient_shift = 0.3
+shader_parameter/gradient_color = Vector3(0.1, 0.3, 0.8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_utwo8"]
 font = ExtResource("1_7af5w")

@@ -53,9 +53,6 @@ func spawn(index, density, radius, height):
 	var end = Time.get_ticks_usec()
 	var worker_time = (end-start)/1000000.0
 
-	# Score.Hud.set_distance(str(worker_time))
-	# print('spawn worker time: ', worker_time)
-
 
 func spawn_block(index):
 	var obs = block.instantiate()
@@ -92,3 +89,10 @@ func spawn_piewall(index, density, radius, height):
 
 	obs.set_position(Vector3(0, 0, -index * length_base + length_base / 2.))
 	add_child(obs)
+
+func restart():
+	curr_index = -1
+	curr_index_block = -1
+	prev_block_index = -1
+	for i in range(get_child_count()):
+		get_child(i).queue_free()

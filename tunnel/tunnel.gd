@@ -55,6 +55,12 @@ func _process(delta):
 	if (current_z - loop.x) > 0:
 		spawn_goodies(loop.y)
 
+
+	for i in range(get_child_count()):
+		if get_child(i).has_method("is_goodie"):
+			if (position.z + get_child(i).position.z) > 5:
+				get_child(i).queue_free()
+
 func spawn_goodies(index):
 	goodies.spawn(index)
 
@@ -120,3 +126,17 @@ func next_stage():
 	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-2))
 	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-5))
 	coins_explode(Vector3(randf_range(-1, 1),randf_range(-1, 1),-8))
+
+func restart():
+	transform.origin = Vector3(0,0,0)
+	tube.set_z(position.z)
+	tube.current = 0
+	tube.restart()
+	obstacles.restart()
+	goodies.restart()
+	rocks.restart()
+	for i in range(get_child_count()):
+		if get_child(i).has_method("is_goodie"):
+			get_child(i).queue_free()
+
+	coins_explode(Vector3(0,0,-7))

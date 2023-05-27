@@ -34,4 +34,7 @@ func take_hit(mask):
 
 func attract(target_pos, delta):
 	target_position = false
-	position = position.move_toward(Vector3(target_pos.x, target_pos.y, position.z), delta*4)
+	position = position.move_toward(Vector3(target_pos.x, target_pos.y, position.z), delta*3)
+
+func is_goodie():
+	return true

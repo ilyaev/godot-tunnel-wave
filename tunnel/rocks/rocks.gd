@@ -78,3 +78,8 @@ func create_mesh():
 
 func generate_rock_noise(mesh):
 	mesh.n = Vector3(n21(mesh.y/10., 12.345), GlobalNoise.r21(mesh.y, 44.33) * 3, 0)
+
+func restart():
+	for i in range(get_child_count()):
+		get_child(i).queue_free()
+	create_mesh()

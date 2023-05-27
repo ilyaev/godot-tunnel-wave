@@ -10,12 +10,14 @@ var radius = 4.5
 var posVelocity = Vector2(0.,0.)
 var posAcceleration = Vector2(0., 0.)
 var lives = 5
+var is_started = false
 
 
 var accelerationRange = .9
 var speedRange = 1.9
 var accelerationDecay = 0.15
 var stage_current = 1
+var start_position
 
 var T = 0
 
@@ -35,11 +37,12 @@ signal bullet_hit(particle: MeshInstance3D, ray: RayCast3D, bullet)
 
 func _ready():
 	lives = 5
+	start_position = position
 	pass # Replace with function body.
 
 
 func _process(delta):
-	if Score.is_game_over:
+	if Score.is_game_over || !is_started:
 		velocity = 0
 		return
 	T += delta
@@ -149,10 +152,10 @@ func _physics_process(delta):
 
 
 func on_ray_collide():
+	# Score.game_over()
 	if T > 1.:
 		lives -= 1
 		if lives <= 0:
-			lives = 5;
 			Score.game_over()
 		else:
 			Score.set_lives(lives)
@@ -192,3 +195,10 @@ func _on_area_3d_body_entered(body):
 			posVelocity = -Vector2(collision_point.x, collision_point.y)*.2
 			velocity = 0
 
+func restart():
+	velocity = 0.
+	posVelocity = Vector2(0.,0.)
+	posAcceleration = Vector2(0., 0.)
+	lives = 5
+	stage_current = 1
+	transform.origin = start_position

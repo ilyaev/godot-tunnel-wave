@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cln3srsuybkg0"]
+[gd_scene load_steps=17 format=3 uid="uid://cln3srsuybkg0"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4rmi1"]
 [ext_resource type="Environment" uid="uid://bjrg33efvf358" path="res://environment/env_v1.tres" id="1_dovhe"]
@@ -6,15 +6,34 @@
 [ext_resource type="PackedScene" uid="uid://d352utt1qgoo" path="res://player/player.tscn" id="3_leqjq"]
 [ext_resource type="PackedScene" uid="uid://rlpv0k8os31" path="res://UI/hud.tscn" id="5_b8vtl"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="6_kjorq"]
-[ext_resource type="Script" path="res://UI/gameover.gd" id="7_ve0ij"]
-[ext_resource type="Shader" path="res://UI/font.gdshader" id="8_nt0cy"]
-[ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="9_6bsbg"]
+[ext_resource type="PackedScene" uid="uid://6ppdald2cjh5" path="res://UI/gameover.tscn" id="7_26trh"]
+[ext_resource type="Texture2D" uid="uid://bpriutooyisvq" path="res://assets/splash_screen.png" id="8_exn8i"]
+[ext_resource type="Shader" path="res://UI/splash.gdshader" id="8_s84cn"]
+[ext_resource type="Shader" path="res://UI/font.gdshader" id="10_pj1ow"]
+[ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="11_vwssx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4na0c"]
-shader = ExtResource("8_nt0cy")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_feyqi"]
+shader = ExtResource("8_s84cn")
 
-[sub_resource type="LabelSettings" id="LabelSettings_najij"]
-font = ExtResource("9_6bsbg")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oeqv1"]
+shader = ExtResource("10_pj1ow")
+shader_parameter/is_gradient = false
+shader_parameter/gradient_shift = 0.3
+shader_parameter/gradient_color = Vector3(0.1, 0.3, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c2yv4"]
+font = ExtResource("11_vwssx")
+font_size = 48
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wd8e"]
+shader = ExtResource("10_pj1ow")
+shader_parameter/is_gradient = true
+shader_parameter/gradient_shift = 0.15
+shader_parameter/gradient_color = Vector3(0.1, 0.3, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_auaaf"]
+line_spacing = 2.08165e-12
+font = ExtResource("11_vwssx")
 font_size = 128
 
 [node name="world" type="Node3D"]
@@ -37,20 +56,42 @@ offset_right = 240.0
 offset_bottom = 0.0
 pressed_color = Color(0.329006, 0.871938, 0.443693, 1)
 
-[node name="gameover" type="Control" parent="."]
+[node name="gameover" parent="." instance=ExtResource("7_26trh")]
 visible = false
+
+[node name="splash_screen" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1164.0
-offset_bottom = 646.0
-script = ExtResource("7_ve0ij")
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="gameover"]
-material = SubResource("ShaderMaterial_4na0c")
+[node name="TextureRect" type="TextureRect" parent="splash_screen"]
+material = SubResource("ShaderMaterial_feyqi")
 layout_mode = 0
-offset_left = 187.0
-offset_top = 256.0
-offset_right = 971.0
-offset_bottom = 413.0
-text = "Game Over"
-label_settings = SubResource("LabelSettings_najij")
+offset_right = 1171.0
+offset_bottom = 681.0
+texture = ExtResource("8_exn8i")
+stretch_mode = 4
+
+[node name="continue_text" type="Label" parent="splash_screen"]
+material = SubResource("ShaderMaterial_oeqv1")
+layout_mode = 0
+offset_left = 130.0
+offset_top = 521.0
+offset_right = 549.0
+offset_bottom = 575.0
+text = "Press any Key"
+label_settings = SubResource("LabelSettings_c2yv4")
+
+[node name="Label" type="Label" parent="splash_screen"]
+material = SubResource("ShaderMaterial_8wd8e")
+layout_mode = 0
+offset_left = -3.0
+offset_top = 40.0
+offset_right = 1168.0
+offset_bottom = 194.0
+pivot_offset = Vector2(200, 2.08165e-12)
+text = "cosmic reach"
+label_settings = SubResource("LabelSettings_auaaf")
+horizontal_alignment = 1
+vertical_alignment = 1
