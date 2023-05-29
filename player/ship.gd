@@ -18,6 +18,7 @@ var speedRange = 1.9
 var accelerationDecay = 0.15
 var stage_current = 1
 var start_position
+var inertia = .2
 
 var T = 0
 
@@ -107,8 +108,8 @@ func _physics_process(delta):
 
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
-	posAcceleration.x += input_dir.x * delta * .12
-	posAcceleration.y -= input_dir.y * delta * .12
+	posAcceleration.x += input_dir.x * delta * inertia
+	posAcceleration.y -= input_dir.y * delta * inertia
 
 	posAcceleration = posAcceleration.clamp(-Vector2(accelerationRange, accelerationRange), Vector2(accelerationRange, accelerationRange))
 
@@ -138,22 +139,29 @@ func _physics_process(delta):
 	basis = Basis().rotated(Vector3.FORWARD, PI*posVelocity.x*3).rotated(Vector3.RIGHT, PI*posVelocity.y*3)
 
 	if Input.is_action_just_pressed("ui_accept"):
-		var b = bullet.instantiate()
-		b.set_meta('side', 'player')
-		b.init(position + bullet_point.position + Vector3(0,0,-0.5))
-		b.connect("bullet_hit", bullet_hit_func)
-		get_parent().add_child(b)
+		shoot()
 
-		var b2 = bullet.instantiate()
-		b2.set_meta('side', 'player')
-		b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
-		b2.connect("bullet_hit", bullet_hit_func)
-		get_parent().add_child(b2)
+
+func shoot():
+	var b = bullet.instantiate()
+	b.set_meta('side', 'player')
+	b.init(position + bullet_point.position + Vector3(0,0,-0.5))
+	b.connect("bullet_hit", bullet_hit_func)
+	get_parent().add_child(b)
+
+	var b2 = bullet.instantiate()
+	b2.set_meta('side', 'player')
+	b2.init(position + bullet_point.position * Vector3(-1, 1, 1) + Vector3(0,0,-0.5))
+	b2.connect("bullet_hit", bullet_hit_func)
+	get_parent().add_child(b2)
+
+	Score.play_laser()
 
 
 func on_ray_collide():
 	# Score.game_over()
 	if T > 1.:
+		Score.play_hit()
 		lives -= 1
 		if lives <= 0:
 			Score.game_over()
@@ -194,6 +202,7 @@ func _on_area_3d_body_entered(body):
 		if layer == 2:
 			posVelocity = -Vector2(collision_point.x, collision_point.y)*.2
 			velocity = 0
+			Score.play_hit()
 
 func restart():
 	velocity = 0.

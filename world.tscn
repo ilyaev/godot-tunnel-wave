@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cln3srsuybkg0"]
+[gd_scene load_steps=19 format=3 uid="uid://cln3srsuybkg0"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4rmi1"]
 [ext_resource type="Environment" uid="uid://bjrg33efvf358" path="res://environment/env_v1.tres" id="1_dovhe"]
@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://rlpv0k8os31" path="res://UI/hud.tscn" id="5_b8vtl"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="6_kjorq"]
 [ext_resource type="PackedScene" uid="uid://6ppdald2cjh5" path="res://UI/gameover.tscn" id="7_26trh"]
-[ext_resource type="Texture2D" uid="uid://bpriutooyisvq" path="res://assets/splash_screen.png" id="8_exn8i"]
+[ext_resource type="Texture2D" uid="uid://ccoatu8vt5igk" path="res://UI/joy_button.tres" id="7_as77p"]
+[ext_resource type="Script" path="res://UI/JoyButton.gd" id="8_irtg5"]
 [ext_resource type="Shader" path="res://UI/splash.gdshader" id="8_s84cn"]
+[ext_resource type="Texture2D" uid="uid://bkrqh2yx0px6" path="res://assets/splash_screen2.png" id="9_p2jlb"]
 [ext_resource type="Shader" path="res://UI/font.gdshader" id="10_pj1ow"]
 [ext_resource type="FontFile" uid="uid://cx2bt852mra6" path="res://assets/Rocket Rinder.otf" id="11_vwssx"]
 
@@ -56,21 +58,31 @@ offset_right = 240.0
 offset_bottom = 0.0
 pressed_color = Color(0.329006, 0.871938, 0.443693, 1)
 
+[node name="JoyButton" type="TextureRect" parent="hud"]
+layout_mode = 0
+offset_left = 927.0
+offset_top = 421.0
+offset_right = 1134.0
+offset_bottom = 622.0
+texture = ExtResource("7_as77p")
+script = ExtResource("8_irtg5")
+
 [node name="gameover" parent="." instance=ExtResource("7_26trh")]
 visible = false
 
 [node name="splash_screen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="splash_screen"]
+[node name="background" type="TextureRect" parent="splash_screen"]
 material = SubResource("ShaderMaterial_feyqi")
 layout_mode = 0
 offset_right = 1171.0
 offset_bottom = 681.0
-texture = ExtResource("8_exn8i")
+texture = ExtResource("9_p2jlb")
 stretch_mode = 4
 
 [node name="continue_text" type="Label" parent="splash_screen"]
@@ -83,7 +95,7 @@ offset_bottom = 575.0
 text = "Press any Key"
 label_settings = SubResource("LabelSettings_c2yv4")
 
-[node name="Label" type="Label" parent="splash_screen"]
+[node name="title" type="Label" parent="splash_screen"]
 material = SubResource("ShaderMaterial_8wd8e")
 layout_mode = 0
 offset_left = -3.0
@@ -91,7 +103,7 @@ offset_top = 40.0
 offset_right = 1168.0
 offset_bottom = 194.0
 pivot_offset = Vector2(200, 2.08165e-12)
-text = "cosmic reach"
+text = "speed oddity"
 label_settings = SubResource("LabelSettings_auaaf")
 horizontal_alignment = 1
 vertical_alignment = 1

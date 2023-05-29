@@ -18,6 +18,7 @@ func _ready():
 func coin():
 	score += 1
 	Hud.set_distance(str(score))
+	Hud.play_coin()
 
 func set_speed(speed):
 	if speed > stage_max_speed:
@@ -33,6 +34,8 @@ func next_stage():
 	stage_max_speed += 2
 	Hud.set_stage(str(stage))
 	Tunnel.next_stage()
+	play_stage()
+	World.send_stat("stage", {"level": stage})
 
 func game_over():
 	is_game_over = true
@@ -40,6 +43,7 @@ func game_over():
 	GameOver.show()
 	GameOver.start()
 	GameOver.set_score(score)
+	World.send_stat("gameover", {"score": score})
 	pass
 
 func start_game():
@@ -53,3 +57,21 @@ func start_game():
 	score = -1
 	coin()
 	World.restart()
+	World.send_stat("stage", {"restart": true})
+
+
+func play_laser():
+	Hud.play_laser()
+
+func play_boom():
+	Hud.play_boom()
+
+
+func play_hit():
+	Hud.play_hit()
+
+func play_stage():
+	Hud.play_stage()
+
+func shoot():
+	World.ship.shoot()

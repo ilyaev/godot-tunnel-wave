@@ -229,4 +229,5 @@ func take_hit(collision_point : Vector3):
 	else:
 		inactive = true
 	acceleration = Vector3(randf_range(-1,1),randf_range(5,15),-randf_range(30,46))
+	Score.play_boom()
 

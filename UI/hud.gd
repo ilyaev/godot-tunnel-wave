@@ -50,6 +50,21 @@ func set_life(life):
 
 func set_stage(stage_str):
 	stage.text = 'Stage ' + stage_str
-	
+
 func shake():
 	TT = .4
+
+func play_coin():
+	$coinSfx.play()
+
+func play_laser():
+	$laserSfx.play()
+
+func play_boom():
+	$boomSfx.play()
+
+func play_hit():
+	$hitSfx.play()
+
+func play_stage():
+	$stageSfx.play()

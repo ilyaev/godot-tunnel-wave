@@ -42,6 +42,7 @@ func take_hit(collision_point : Vector3):
 	if is_target:
 		if !is_hit:
 			get_parent().get_parent().coins_explode(collision_point)
+			Score.play_boom()
 		is_hit = true
 		queue_free()
 	pass
