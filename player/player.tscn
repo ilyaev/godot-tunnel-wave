@@ -8,6 +8,7 @@
 [node name="head" type="Node3D"]
 
 [node name="ship" parent="." instance=ExtResource("1_1wuo8")]
+inertia = 0.2
 
 [node name="bullet_place" type="MeshInstance3D" parent="ship"]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.5, 0.10291, 0.0786722, 0.0398332)

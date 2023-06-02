@@ -7,6 +7,7 @@ var starting_max_speed = 13
 var is_game_over = false
 
 @onready var Hud = $"../world/hud"
+@onready var Splash = $"../world/splash_screen"
 @onready var GameOver = $"../world/gameover"
 @onready var Tunnel = $"../world/tunnel"
 @onready var World = $"../world"
@@ -18,7 +19,8 @@ func _ready():
 func coin():
 	score += 1
 	Hud.set_distance(str(score))
-	Hud.play_coin()
+	if !Splash.visible:
+		Hud.play_coin()
 
 func set_speed(speed):
 	if speed > stage_max_speed:
@@ -68,10 +70,12 @@ func play_boom():
 
 
 func play_hit():
-	Hud.play_hit()
+	if !Splash.visible:
+		Hud.play_hit()
 
 func play_stage():
-	Hud.play_stage()
+	if !Splash.visible:
+		Hud.play_stage()
 
 func shoot():
 	World.ship.shoot()

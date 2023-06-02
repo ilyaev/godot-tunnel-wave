@@ -4,11 +4,13 @@ extends Node3D
 @onready var ship = $head/ship
 @onready var splash = $splash_screen
 @onready var anykey = $splash_screen/continue_text
+@onready var pbar = $splash_screen/pbar
 var http_request = HTTPRequest.new()
 
 var T = 0
 
 func _ready():
+	ship.is_started = true
 	splash.show()
 	tunnel.translate(Vector3(0, 0, 0))
 	ship.connect("bullet_hit", tunnel.bullet_hit)
@@ -20,13 +22,21 @@ func send_stat(action, body = {}):
 	body.id = user_id
 	body.action = action
 	var bodyStr = JSON.new().stringify(body)
-	http_request.request("http://127.0.0.1:4001/oddity", ["content-type: application/json"], HTTPClient.METHOD_POST, bodyStr)
 
 
 func _process(delta):
-	T += delta
 	tunnel.translate(Vector3(0, 0, delta * ship.velocity))
 	tunnel.startube.set_instance_shader_parameter("ship_speed", max(0.3, ship.velocity))
+
+	T += delta
+
+	if T < 3:
+		pbar.size.x = 1000*T/3
+		anykey.hide()
+		return
+	else:
+		pbar.hide()
+
 	if fmod(T*2, 2) > 1:
 		anykey.show()
 	else:
@@ -39,12 +49,13 @@ func restart():
 	ship.restart()
 
 func _input(event):
-	if T > 1.:
-		splash.hide()
-		ship.is_started = true
+	if T > 3.:
+		if splash.visible:
+			splash.hide()
+			restart()
 
-	# if event is InputEventKey:
-	# 	if event.keycode == 83 && event.pressed == false:
-	# 		# Get the viewport's texture
-	# 		var img = get_viewport().get_texture().get_image()
-	# 		img.save_png("UI/save%s.png" % [randi_range(10,1000)])
+
+	if event is InputEventKey:
+		if event.keycode == 83 && event.pressed == false:
+			var img = get_viewport().get_texture().get_image()
+			img.save_png("UI/save%s.png" % [randi_range(10,1000)])

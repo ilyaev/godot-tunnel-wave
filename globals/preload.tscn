@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0wxuqmse8fsy"]
+
+[ext_resource type="Script" path="res://globals/preload.gd" id="1_r1on7"]
+
+[node name="preload" type="Node3D"]
+script = ExtResource("1_r1on7")

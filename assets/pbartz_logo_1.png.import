@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b18ggfsndn1pv"
-path="res://.godot/imported/scr1.jpg-b752c5a57de3a2428062a235cfd8de2c.ctex"
+uid="uid://mpkr16gjehm0"
+path="res://.godot/imported/pbartz_logo_1.png-14bf43438223c32ef6b5b3168308ca1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/scr1.jpg"
-dest_files=["res://.godot/imported/scr1.jpg-b752c5a57de3a2428062a235cfd8de2c.ctex"]
+source_file="res://assets/pbartz_logo_1.png"
+dest_files=["res://.godot/imported/pbartz_logo_1.png-14bf43438223c32ef6b5b3168308ca1d.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6ppdald2cjh5"]
+[gd_scene load_steps=15 format=3 uid="uid://6ppdald2cjh5"]
 
 [ext_resource type="Script" path="res://UI/gameover.gd" id="1_jm0t7"]
 [ext_resource type="Shader" path="res://UI/font.gdshader" id="2_bbti3"]
@@ -41,7 +41,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("continue_text:visible")
+tracks/1/path = NodePath("restart_btn/continue_text:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -81,7 +81,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("continue_text:visible")
+tracks/2/path = NodePath("restart_btn/continue_text:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -96,6 +96,16 @@ _data = {
 "RESET": SubResource("Animation_b3e54"),
 "game_over": SubResource("Animation_np4y4")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lm2be"]
+shader = ExtResource("2_bbti3")
+shader_parameter/is_gradient = true
+shader_parameter/gradient_shift = 0.5
+shader_parameter/gradient_color = Vector3(0.3, 0.3, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7i36p"]
+font = ExtResource("3_mhp20")
+font_size = 48
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iptqp"]
 shader = ExtResource("2_bbti3")
@@ -139,12 +149,39 @@ libraries = {
 "": SubResource("AnimationLibrary_dw6t0")
 }
 
-[node name="continue_text" type="Label" parent="."]
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 536.0
+offset_right = 740.0
+offset_bottom = 629.0
+
+[node name="Label" type="Label" parent="TextureButton"]
+material = SubResource("ShaderMaterial_lm2be")
+layout_mode = 0
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 322.0
+offset_bottom = 80.0
+text = "Rate Game!"
+label_settings = SubResource("LabelSettings_7i36p")
+
+[node name="restart_btn" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 419.0
+offset_right = 745.0
+offset_bottom = 512.0
+
+[node name="continue_text" type="Label" parent="restart_btn"]
 material = SubResource("ShaderMaterial_iptqp")
 layout_mode = 0
-offset_left = 364.0
-offset_top = 461.0
-offset_right = 783.0
-offset_bottom = 515.0
-text = "Press any Key"
+offset_left = 72.0
+offset_top = 28.0
+offset_right = 319.0
+offset_bottom = 82.0
+text = "Restart"
 label_settings = SubResource("LabelSettings_2u70d")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="restart_btn" to="." method="_on_restart_btn_pressed"]

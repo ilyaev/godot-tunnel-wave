@@ -18,7 +18,7 @@ var speedRange = 1.9
 var accelerationDecay = 0.15
 var stage_current = 1
 var start_position
-var inertia = .2
+@export var inertia = .15
 
 var T = 0
 
@@ -44,7 +44,7 @@ func _ready():
 
 func _process(delta):
 	if Score.is_game_over || !is_started:
-		velocity = 0
+		velocity = 0.
 		return
 	T += delta
 	velocity = min(max_velocity, velocity + a*delta)
@@ -55,7 +55,7 @@ func _process(delta):
 
 	if Score.stage != stage_current:
 		stage_current = Score.stage
-		velocity = 0
+		velocity = 0.
 		T = 0
 
 	pass
@@ -74,7 +74,7 @@ func _physics_process(delta):
 
 	if ray.is_colliding() :
 		ray_collider = ray.get_collider()
-		velocity = -3
+		velocity = -3.
 
 	if ray2.is_colliding():
 		ray_collider = ray2.get_collider()
@@ -121,6 +121,7 @@ func _physics_process(delta):
 
 	posVelocity += posAcceleration
 	posVelocity = posVelocity.clamp(-Vector2(speedRange, speedRange), Vector2(speedRange, speedRange))
+
 
 	if posVelocity.x != 0:
 		posVelocity.x -= posVelocity.x * accelerationDecay
@@ -201,7 +202,7 @@ func _on_area_3d_body_entered(body):
 		var collision_normal = result.normal.normalized()
 		if layer == 2:
 			posVelocity = -Vector2(collision_point.x, collision_point.y)*.2
-			velocity = 0
+			velocity = 0.
 			Score.play_hit()
 
 func restart():

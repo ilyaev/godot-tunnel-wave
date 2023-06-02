@@ -57,8 +57,10 @@ offset_top = -255.0
 offset_right = 240.0
 offset_bottom = 0.0
 pressed_color = Color(0.329006, 0.871938, 0.443693, 1)
+joystick_mode = 1
 
 [node name="JoyButton" type="TextureRect" parent="hud"]
+visible = false
 layout_mode = 0
 offset_left = 927.0
 offset_top = 421.0
@@ -71,7 +73,6 @@ script = ExtResource("8_irtg5")
 visible = false
 
 [node name="splash_screen" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -107,3 +108,10 @@ text = "speed oddity"
 label_settings = SubResource("LabelSettings_auaaf")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="pbar" type="ColorRect" parent="splash_screen"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 585.0
+offset_right = 79.0
+offset_bottom = 632.0

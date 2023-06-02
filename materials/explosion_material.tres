@@ -1,0 +1,23 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://cy6f01lccsoaw"]
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 0.87
+spread = 108.14
+initial_velocity_min = 0.5
+initial_velocity_max = 20.0
+angular_velocity_min = -1.0
+angular_velocity_max = 1.0
+radial_accel_min = -0.5
+radial_accel_max = 1.0
+tangential_accel_min = -1.0
+tangential_accel_max = 1.0
+angle_min = -203.6
+angle_max = 143.2
+scale_min = 0.3
+scale_max = 1.3
+hue_variation_min = -0.44
+hue_variation_max = 0.58
+turbulence_enabled = true
+turbulence_noise_strength = 2.37
+turbulence_noise_scale = 5.02

@@ -30,6 +30,12 @@ func _ready():
 	goodies.spacing = spacing
 
 	coins_explode(Vector3(0,0,-7))
+	var expl = explosion.instantiate()
+	expl.position = Vector3(0,0,-7)
+	add_child(expl)
+
+	obstacles.spawn_block(10)
+	obstacles.spawn_piewall(8, 8, 3, 1)
 
 func _process(delta):
 	T += delta
