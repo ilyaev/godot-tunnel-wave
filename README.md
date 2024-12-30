@@ -1,12 +1,5 @@
 # godot-tunnel-wave
 
-## Watch the video
-[![Watch the video](https://img.youtube.com/vi/DFpu7O0Mdhk/hqdefault.jpg)](https://youtu.be/DFpu7O0Mdhk)
-
-<img src="assets/scr1.jpg"/>
-
-<hr>
-<img src="assets/scr2.jpg"/>
-
+https://github.com/user-attachments/assets/fe448d08-933d-4d4c-9b73-be4325faa7bf
 
 
